@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduZakhanh - Trợ giúp & Thông tin</title>
+    <!-- Import Google Font -->
     <style>
-        /* --- Reset và Cài đặt Cơ bản --- */
+        /* Reset and Box Sizing */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -13,60 +14,49 @@
         }
 
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f4f7f6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.7; /* Slightly increased line height for readability */
+            color: #495057; /* Softer black for body text */
+            background-color: #f8f9fa; /* Lighter, slightly warmer background */
             display: flex;
-            flex-direction: column; /* Cho phép footer đẩy xuống dưới */
-            min-height: 100vh; /* Đảm bảo body chiếm ít nhất toàn bộ chiều cao viewport */
+            flex-direction: column;
+            min-height: 100vh;
+            font-size: 16px; /* Base font size */
         }
 
         .page-wrapper {
             display: flex;
-            flex-grow: 1; /* Cho phép phần này phát triển để đẩy footer xuống */
+            flex-grow: 1;
         }
 
-        /* --- Bố cục Sidebar và Nội dung Chính --- */
+        /* Sidebar Styling */
         .sidebar {
-            width: 240px;
+            width: 260px; /* Slightly wider sidebar */
             background-color: #ffffff;
-            border-right: 1px solid #e0e0e0;
-            height: 100vh; /* Sidebar vẫn cố định chiều cao */
-            position: fixed; /* Cố định sidebar */
+            border-right: 1px solid #dee2e6; /* Softer border color */
+            height: 100vh;
+            position: fixed;
             top: 0;
             left: 0;
-            padding: 25px 15px;
+            padding: 30px 20px;
             overflow-y: auto;
-            z-index: 10; /* Đảm bảo sidebar ở trên nếu có phần tử khác */
+            z-index: 100; /* Ensure sidebar is on top */
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+            transition: width 0.3s ease; /* Smooth transition for potential future collapse */
         }
 
-        .content-area {
-            flex-grow: 1;
-            margin-left: 240px; /* Khoảng trống cho sidebar */
-            display: flex;
-            flex-direction: column; /* Sắp xếp main-content và footer theo cột */
-        }
-
-
-        .main-content {
-            flex-grow: 1; /* Nội dung chính chiếm không gian còn lại */
-            padding: 30px 40px;
-            background-color: #ffffff;
-            /* Không cần min-height ở đây nữa */
-        }
-
-        /* --- Kiểu dáng Sidebar --- */
         .sidebar h3 {
-            font-size: 1.2em;
-            color: #0056b3;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
+            font-size: 1.3em;
+            font-weight: 600; /* Bolder heading */
+            color: #0056b3; /* Primary blue */
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e9ecef; /* Lighter border */
+            text-align: center;
         }
 
         .sidebar ul {
@@ -74,127 +64,206 @@
         }
 
         .sidebar li {
-            margin-bottom: 8px;
+            margin-bottom: 5px; /* Slightly reduced margin */
         }
 
         .sidebar a {
             text-decoration: none;
-            color: #333;
+            color: #343a40; /* Darker grey for links */
             display: block;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            padding: 10px 15px; /* Increased padding */
+            border-radius: 6px; /* More rounded corners */
+            transition: all 0.3s ease; /* Smooth transition for all properties */
             font-size: 0.95em;
+            position: relative; /* For potential pseudo-elements */
+            font-weight: 500; /* Slightly bolder */
         }
 
         .sidebar a:hover,
-        .sidebar a:focus {
-            background-color: #e9ecef;
-            color: #0056b3;
+        .sidebar a:focus,
+        .sidebar a.active { /* Style for active link (requires JS or server-side logic to add 'active' class) */
+            background-color: #e7f1ff; /* Lighter blue background */
+            color: #0056b3; /* Primary blue text */
+            transform: translateX(5px); /* Subtle shift effect */
         }
 
-        /* --- Kiểu dáng Nội dung Chính --- */
+        /* Style for nested links */
+        .sidebar ul ul a {
+            padding-left: 35px; /* Indent nested links */
+            font-size: 0.9em; /* Smaller font size for nested */
+            color: #6c757d; /* Lighter color for nested */
+            font-weight: 400;
+        }
+        .sidebar ul ul a:hover,
+        .sidebar ul ul a:focus,
+        .sidebar ul ul a.active {
+            background-color: #e7f1ff; /* Same hover background */
+            color: #004a99; /* Slightly darker blue on hover */
+            transform: translateX(3px); /* Less shift for nested */
+        }
+
+
+        /* Content Area Styling */
+        .content-area {
+            flex-grow: 1;
+            margin-left: 260px; /* Match sidebar width */
+            display: flex;
+            flex-direction: column;
+            transition: margin-left 0.3s ease; /* Smooth transition if sidebar width changes */
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 40px 50px; /* Increased padding */
+            background-color: #ffffff;
+            border-radius: 8px; /* Rounded corners for content */
+            margin: 20px; /* Add margin around the content */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* More prominent shadow */
+        }
+
+        /* Heading Styles */
         .main-content h1 {
-            font-size: 2em;
-            color: #2c3e50;
+            font-size: 2.4em; /* Larger H1 */
+            font-weight: 700;
+            color: #2c3e50; /* Dark slate color */
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px; /* More space below H1 */
+            position: relative;
+            padding-bottom: 15px;
+        }
+        /* Optional: Add an underline effect to H1 */
+        .main-content h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #0056b3; /* Primary blue underline */
+            border-radius: 2px;
         }
 
         .main-content h2 {
-            font-size: 1.6em;
-            color: #1a5276;
-            margin-top: 35px;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #e0e0e0;
+            font-size: 1.8em; /* Larger H2 */
+            font-weight: 600;
+            color: #0056b3; /* Primary blue for H2 */
+            margin-top: 45px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #eaf2f8; /* Lighter, thicker border */
+            position: relative; /* For potential icon or effect */
         }
+        /* Style the first H2 differently (no top margin) */
         .main-content h2:first-of-type {
             margin-top: 0;
         }
 
         .main-content h3 {
-            font-size: 1.3em;
-            color: #21618C;
-            margin-top: 25px;
-            margin-bottom: 12px;
+            font-size: 1.4em; /* Larger H3 */
+            font-weight: 600;
+            color: #1a7fa8; /* Teal-ish blue for H3 */
+            margin-top: 30px;
+            margin-bottom: 15px;
         }
 
+        /* Text and List Styles */
         .main-content p {
-            margin-bottom: 15px;
-            color: #555;
+            margin-bottom: 18px;
+            color: #495057; /* Consistent soft black */
+            line-height: 1.8; /* Even more line height for paragraphs */
         }
 
         .main-content ul {
-            margin-left: 25px;
-            margin-bottom: 15px;
+            margin-left: 30px; /* Standard indentation */
+            margin-bottom: 18px;
+            list-style-type: disc; /* Default bullet points */
         }
-
-        .main-content li {
-            margin-bottom: 8px;
+        .main-content ul li {
+            margin-bottom: 10px;
+            padding-left: 5px; /* Space between bullet and text */
         }
 
         .main-content hr {
-            display: none;
+            display: none; /* Keep HR hidden, use heading borders instead */
         }
 
+        /* Link Styles in Content */
         .main-content a {
-            color: #0056b3;
+            color: #0069d9; /* Slightly brighter blue for links */
             text-decoration: none;
             font-weight: 600;
-            transition: color 0.2s ease;
+            transition: all 0.2s ease;
+            position: relative;
+            background-image: linear-gradient(to right, #0069d9, #0069d9);
+            background-size: 0% 2px; /* Start with underline hidden */
+            background-repeat: no-repeat;
+            background-position: left bottom;
         }
 
-        .main-content a:hover {
-            color: #003d80;
-            text-decoration: underline;
+        .main-content a:hover,
+        .main-content a:focus {
+            color: #0056b3; /* Darker blue on hover */
+            /* text-decoration: underline; */
+            background-size: 100% 2px; /* Animate underline */
         }
 
+        /* Emphasis Styles */
         .main-content b,
         .main-content strong {
-            color: #111;
+            color: #212529; /* Darker color for emphasis */
+            font-weight: 600; /* Ensure boldness */
         }
 
-        /* --- Footer Styling --- */
+        /* Footer Styling */
         .site-footer {
-            background-color: #343a40; /* Nền tối cho footer */
-            color: #adb5bd; /* Màu chữ sáng hơn trên nền tối */
-            padding: 40px 0 20px 0; /* Padding trên/dưới */
-            /* margin-left đã được xử lý bởi .content-area */
-            border-top: 3px solid #0056b3; /* Đường kẻ màu nhấn phía trên footer */
-            font-size: 0.9em;
-            margin-top: auto; /* Đẩy footer xuống dưới nếu nội dung ngắn */
+            background-color: #2c3e50; /* Dark slate background */
+            color: #adb5bd; /* Light grey text */
+            padding: 50px 0 25px 0; /* Increased padding */
+            border-top: 5px solid #0056b3; /* Thicker primary blue top border */
+            font-size: 0.95em;
+            margin-top: auto; /* Push footer to bottom */
         }
 
         .footer-container {
-            max-width: 1200px; /* Giới hạn chiều rộng nội dung footer */
-            margin: 0 auto; /* Căn giữa container */
-            padding: 0 40px; /* Padding trái/phải bên trong container */
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 30px; /* Khoảng cách giữa các cột footer */
+            gap: 40px; /* Increased gap */
         }
 
         .footer-section {
-            flex: 1; /* Cho phép các section co giãn */
-            min-width: 220px; /* Chiều rộng tối thiểu trước khi xuống dòng */
+            flex: 1;
+            min-width: 240px; /* Slightly larger min-width */
         }
 
         .footer-section h4 {
-            font-size: 1.15em;
-            color: #ffffff; /* Màu tiêu đề trắng trong footer */
-            margin-bottom: 20px;
+            font-size: 1.25em;
+            font-weight: 600;
+            color: #ffffff; /* White heading */
+            margin-bottom: 25px;
             position: relative;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #495057; /* Đường kẻ mờ dưới tiêu đề footer */
+            padding-bottom: 12px;
+        }
+        /* Underline effect for footer headings */
+        .footer-section h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: #007bff; /* Brighter blue accent */
+            border-radius: 1px;
         }
 
-
         .footer-section p {
-            margin-bottom: 10px;
-            line-height: 1.7;
-            color: #ced4da; /* Màu chữ đoạn văn trong footer */
+            margin-bottom: 12px;
+            line-height: 1.8;
+            color: #ced4da; /* Lighter grey for text */
         }
 
         .footer-section ul {
@@ -204,88 +273,158 @@
         }
 
         .footer-section li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .footer-section a {
-            color: #ced4da; /* Màu link trong footer */
+            color: #ced4da; /* Lighter grey for links */
             text-decoration: none;
-            transition: color 0.2s ease, text-decoration 0.2s ease;
-            font-weight: normal; /* Reset font-weight */
+            transition: all 0.3s ease;
+            font-weight: normal; /* Normal weight for footer links */
+            position: relative; /* For potential effects */
+            padding-bottom: 2px; /* Space for potential underline */
         }
 
         .footer-section a:hover,
         .footer-section a:focus {
-            color: #ffffff; /* Màu link sáng hơn khi hover */
-            text-decoration: underline;
+            color: #ffffff; /* White on hover */
+            text-decoration: none; /* Remove default underline */
+            padding-left: 5px; /* Subtle move effect */
+        }
+        /* Optional: Add a subtle bottom border on hover */
+        .footer-section a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            display: block;
+            margin-top: 2px;
+            right: 0;
+            background: #ffffff;
+            transition: width .2s ease;
+            -webkit-transition: width .2s ease;
+        }
+        .footer-section a:hover::after {
+            width: 100%;
+            left: 0;
+            background: #ffffff;
         }
 
-        /* Nhấn mạnh tên quản trị viên trong footer */
+
         .footer-section .contact-admin strong {
-            color: #f8f9fa;
+            color: #ffffff; /* White for admin name */
             font-weight: 600;
         }
 
         .footer-bottom {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #495057; /* Đường kẻ phân cách cuối */
-            font-size: 0.85em;
-            color: #adb5bd;
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid #495057; /* Slightly darker border */
+            font-size: 0.9em;
+            color: #adb5bd; /* Light grey */
+        }
+        .footer-bottom p {
+            color: #adb5bd; /* Ensure paragraph inherits color */
         }
 
-        /* --- Responsive Design --- */
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-content {
+                padding: 30px 35px;
+            }
+            .main-content h1 {
+                font-size: 2.1em;
+            }
+            .main-content h2 {
+                font-size: 1.6em;
+            }
+            .main-content h3 {
+                font-size: 1.3em;
+            }
+        }
+
         @media (max-width: 768px) {
             .page-wrapper {
-                flex-direction: column; /* Chuyển thành cột */
+                flex-direction: column;
             }
             .sidebar {
                 width: 100%;
                 height: auto;
-                position: static; /* Bỏ cố định */
+                position: static; /* Change position */
                 border-right: none;
-                border-bottom: 1px solid #e0e0e0;
-                z-index: auto; /* Reset z-index */
+                border-bottom: 1px solid #dee2e6;
+                z-index: auto;
+                box-shadow: none; /* Remove shadow on mobile */
+                padding: 20px; /* Adjust padding */
+            }
+            .sidebar h3 {
+                text-align: left; /* Align left on mobile */
+                margin-bottom: 15px;
             }
             .content-area {
-                margin-left: 0; /* Bỏ margin trái */
+                margin-left: 0; /* Remove margin */
             }
             .main-content {
-                padding: 20px;
+                padding: 25px 20px; /* Adjust padding */
+                margin: 15px; /* Adjust margin */
+                border-radius: 6px; /* Slightly less rounded on mobile */
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); /* Lighter shadow */
             }
             .main-content h1 {
-                font-size: 1.8em;
+                font-size: 1.9em;
                 margin-bottom: 30px;
+                padding-bottom: 10px;
+            }
+            .main-content h1::after { /* Adjust underline */
+                width: 60px;
+                height: 3px;
             }
             .main-content h2 {
-                font-size: 1.4em;
+                font-size: 1.5em;
+                margin-top: 30px;
             }
             .main-content h3 {
-                font-size: 1.2em;
+                font-size: 1.25em;
+                margin-top: 25px;
             }
 
             /* Footer Responsive Adjustments */
             .footer-container {
-                flex-direction: column;
-                padding: 0 20px;
-                gap: 25px;
+                flex-direction: column; /* Stack sections */
+                padding: 0 25px;
+                gap: 30px;
             }
             .footer-section {
                 min-width: auto;
                 margin-bottom: 15px;
             }
-            .footer-bottom {
-                margin-top: 20px;
-                padding-top: 15px;
+            .footer-section h4 {
+                margin-bottom: 15px;
+                font-size: 1.2em;
             }
+            .footer-bottom {
+                margin-top: 25px;
+                padding-top: 20px;
+                font-size: 0.85em; /* Smaller text in footer bottom */
+            }
+        }
+
+        /* Additional subtle animation for content loading (optional) */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .main-content section { /* Assuming content is wrapped in sections, or apply to h2/p */
+            animation: fadeIn 0.5s ease-out forwards;
+            /* Stagger animation if needed with animation-delay */
         }
 
     </style>
 </head>
 <body>
-<div class="page-wrapper"> <!-- Thêm một div bao bọc sidebar và content-area -->
-    <!-- Sidebar Navigation -->
+<div class="page-wrapper">
     <nav class="sidebar">
         <h3>Mục Lục</h3>
         <ul>
@@ -294,9 +433,10 @@
             <li><a href="#roles">Vai trò & Quyền hạn</a></li>
             <li><a href="#features">Tính năng cốt lõi</a>
                 <ul>
-                    <li><a href="#admin-view" style="padding-left: 25px; font-size: 0.9em;">- Quản trị viên</a></li>
-                    <li><a href="#teacher-view" style="padding-left: 25px; font-size: 0.9em;">- Giáo viên</a></li>
-                    <li><a href="#student-view" style="padding-left: 25px; font-size: 0.9em;">- Học viên</a></li>
+                    <!-- Removed inline styles, rely on CSS rules -->
+                    <li><a href="#admin-view">- Quản trị viên</a></li>
+                    <li><a href="#teacher-view">- Giáo viên</a></li>
+                    <li><a href="#student-view">- Học viên</a></li>
                 </ul>
             </li>
             <li><a href="#common-actions">Hành động phổ biến</a></li>
@@ -305,124 +445,188 @@
         </ul>
     </nav>
 
-    <div class="content-area"> <!-- Div bao bọc nội dung chính và footer -->
-        <!-- Main Content Area -->
+    <div class="content-area">
         <main class="main-content">
 
-            <h1>EduZakhanh - Trợ giúp & Thông tin</h1>
+            <!-- Added sections for potential animation hook -->
+            <section id="welcome">
+                <h1>EduZakhanh - Trợ giúp & Thông tin</h1>
+                <h2>Chào mừng</h2>
+                <p>
+                    Chào mừng bạn đến với Hệ thống Quản lý Giáo dục EduZakhanh! Hướng dẫn này cung cấp thông tin về cách điều hướng và sử dụng các tính năng của ứng dụng một cách hiệu quả nhất.
+                </p>
+            </section>
 
-            <h2 id="welcome">Chào mừng</h2>
-            <p>
-                Chào mừng bạn đến với Hệ thống Quản lý Giáo dục EduZakhanh! Hướng dẫn này cung cấp thông tin về cách điều hướng và sử dụng các tính năng của ứng dụng.
-            </p>
+            <section id="navigation">
+                <h2>Điều hướng chung</h2>
+                <ul>
+                    <li>Sử dụng các <b>tab điều hướng chính</b> (ví dụ: <b>Lịch trình</b>, <b>Lớp học</b>, <b>Học viên</b>...) để truy cập các phân hệ quản lý khác nhau của hệ thống.</li>
+                    <li>Dữ liệu thường được trình bày dưới dạng <b>bảng biểu</b>. Bạn có thể nhấp vào <b>tiêu đề cột</b> để sắp xếp dữ liệu tăng dần hoặc giảm dần.</li>
+                    <li>Các nút chức năng như <b style="color:#28a745;">Thêm</b>, <b style="color:#ffc107; text-shadow: 1px 1px 1px #aaa;">Sửa</b>, và <b style="color:#dc3545;">Xóa</b> thường được đặt gần bảng dữ liệu tương ứng.</li>
+                    <li>Sử dụng thanh <b>menu chính</b> (<b>Chính</b>, <b>Xuất file</b>, <b>Xem</b>, <b>Trợ giúp</b>) cho các thao tác toàn cục như đăng xuất, xuất báo cáo, thay đổi giao diện, và truy cập trang trợ giúp này.</li>
+                </ul>
+            </section>
 
-            <h2 id="navigation">Điều hướng chung</h2>
-            <ul>
-                <li>Sử dụng các <b>tab</b> ở trên cùng (ví dụ: <b>Lịch trình</b>, <b>Lớp học</b>, <b>Học viên</b>) để truy cập các phần quản lý khác nhau.</li>
-                <li>Dữ liệu chủ yếu được hiển thị trong bảng. Nhấp vào <b>tiêu đề cột</b> để sắp xếp dữ liệu theo cột đó. Nhấp lần nữa để đảo ngược thứ tự sắp xếp.</li>
-                <li>Các nút hành động như <b>Thêm</b>, <b>Sửa</b>, và <b>Xóa</b> thường nằm gần các bảng hoặc dữ liệu mà chúng ảnh hưởng.</li>
-                <li>Sử dụng thanh menu chính (<b>Chính</b>, <b>Xuất file</b>, <b>Xem</b>, <b>Trợ giúp</b>) cho các hành động cấp ứng dụng như đăng xuất, xuất dữ liệu, thay đổi giao diện và truy cập thông tin trợ giúp này.</li>
-            </ul>
+            <section id="roles">
+                <h2>Vai trò và Quyền hạn</h2>
+                <p>Chức năng và dữ liệu bạn có thể thấy và tương tác phụ thuộc vào vai trò tài khoản của bạn:</p>
+                <ul>
+                    <li><b>Quản trị viên (Administrator):</b> Có toàn quyền truy cập mọi tính năng, bao gồm quản lý tài khoản người dùng, cấu hình hệ thống và xem nhật ký hoạt động chi tiết.</li>
+                    <li><b>Giáo viên (Teacher):</b> Có thể xem lịch dạy cá nhân, quản lý điểm danh và thông tin học viên trong các lớp được phân công, xem thông tin khóa học.</li>
+                    <li><b>Học viên (Student):</b> Có thể xem lịch học cá nhân, thông tin các lớp đã đăng ký, kết quả học tập (nếu có) và thông tin khóa học chung.</li>
+                </ul>
+            </section>
 
-            <h2 id="roles">Vai trò và Quyền hạn</h2>
-            <p>Các tính năng và dữ liệu bạn có thể truy cập phụ thuộc vào vai trò được gán:</p>
-            <ul>
-                <li><b>Quản trị viên (Administrator):</b> Có toàn quyền truy cập vào tất cả các phần, bao gồm quản lý tài khoản người dùng và xem nhật ký hệ thống.</li>
-                <li><b>Giáo viên (Teacher):</b> Có thể xem lịch trình của mình, quản lý học viên trong các lớp được giao và xem thông tin khóa học.</li>
-                <li><b>Học viên (Student):</b> Có thể xem lịch trình cá nhân, các lớp đã đăng ký và thông tin khóa học chung.</li>
-            </ul>
+            <section id="features">
+                <h2>Tính năng cốt lõi theo từng vai trò</h2>
 
-            <h2 id="features">Tính năng cốt lõi theo từng vai trò</h2>
+                <h3 id="admin-view">Giao diện Quản trị viên</h3>
+                <ul>
+                    <li><b>Lịch trình (Schedule):</b> Xem, tạo mới, chỉnh sửa và xóa lịch học. Sử dụng bộ lọc ngày và nút 'Tải lịch trình' để xem các khoảng thời gian mong muốn. Hệ thống sẽ cảnh báo các xung đột tiềm ẩn (trùng thời gian/giáo viên/phòng học).</li>
+                    <li><b>Lớp học (Classes):</b> Quản lý thông tin lớp học, phân công khóa học và giáo viên phụ trách. Thêm hoặc xóa học viên khỏi danh sách lớp (ghi danh). Thiết lập sĩ số tối đa cho từng lớp.</li>
+                    <li><b>Học viên (Students):</b> Quản lý hồ sơ chi tiết của học viên (thêm, sửa, xóa). Đảm bảo thông tin liên hệ, đặc biệt là số điện thoại, là chính xác để phục vụ việc đăng ký tài khoản.</li>
+                    <li><b>Giáo viên (Teachers):</b> Quản lý hồ sơ giáo viên. Mã ID Giáo viên (tự động tạo hoặc nhập khi tạo mới) là cần thiết cho việc đăng ký tài khoản Giáo viên.</li>
+                    <li><b>Khóa học (Courses):</b> Định nghĩa và quản lý danh mục các khóa học mà trung tâm cung cấp.</li>
+                    <li><b>Phòng học (Rooms):</b> Quản lý danh sách phòng học (vật lý hoặc trực tuyến), bao gồm thông tin về sức chứa và loại phòng.</li>
+                    <li><b>Tài khoản (Accounts):</b> Xem danh sách tài khoản người dùng (Giáo viên, Học viên). Có quyền đặt lại mật khẩu khi cần thiết.</li>
+                    <li><b>Nhật ký (Logs):</b> Theo dõi lịch sử các hành động quan trọng được thực hiện trong hệ thống (cập nhật tự động theo thời gian thực).</li>
+                    <li><b>Trợ giúp (Help):</b> Truy cập nhanh vào trang hướng dẫn sử dụng này.</li>
+                </ul>
 
-            <h3 id="admin-view">Giao diện Quản trị viên</h3>
-            <ul>
-                <li><b>Lịch trình (Schedule):</b> Xem, thêm, sửa và xóa lịch học. Sử dụng bộ chọn ngày và nút 'Tải lịch trình' để xem các khoảng thời gian cụ thể. Lưu ý các xung đột tiềm ẩn (thời gian/giáo viên/phòng).</li>
-                <li><b>Lớp học (Classes):</b> Quản lý các lớp học. Gán khóa học và giáo viên. Thêm hoặc xóa học viên khỏi danh sách lớp (ghi danh). Đặt sĩ số tối đa của lớp.</li>
-                <li><b>Học viên (Students):</b> Quản lý hồ sơ học viên (thêm, sửa, xóa). Đảm bảo số điện thoại của học viên là chính xác vì chúng được sử dụng để đăng ký tài khoản.</li>
-                <li><b>Giáo viên (Teachers):</b> Quản lý hồ sơ giáo viên. ID giáo viên (được cung cấp trong quá trình tạo hoặc chỉnh sửa) cần thiết để đăng ký tài khoản giáo viên.</li>
-                <li><b>Khóa học (Courses):</b> Xác định và quản lý các khóa học do cơ sở đào tạo cung cấp.</li>
-                <li><b>Phòng học (Rooms):</b> Quản lý phòng học vật lý hoặc ảo, bao gồm sức chứa và loại phòng.</li>
-                <li><b>Tài khoản (Accounts):</b> Xem tài khoản người dùng (Giáo viên, Học viên). Có thể đặt lại mật khẩu cho người dùng.</li>
-                <li><b>Nhật ký (Logs):</b> Xem lại danh sách theo thời gian của các hành động quan trọng được thực hiện trong hệ thống (cập nhật tự động).</li>
-                <li><b>Trợ giúp (Help):</b> Truy cập hướng dẫn trợ giúp này.</li>
-            </ul>
+                <h3 id="teacher-view">Giao diện Giáo viên</h3>
+                <ul>
+                    <li><b>Lịch trình của tôi (My Schedule):</b> Hiển thị lịch giảng dạy cá nhân của bạn trong khoảng thời gian được chọn.</li>
+                    <li><b>Lớp học của tôi (My Classes):</b> Liệt kê các lớp bạn đang phụ trách, cho phép xem danh sách học viên đã ghi danh và các thông tin liên quan.</li>
+                    <li><b>Học viên của tôi (My Students):</b> Cung cấp cái nhìn tổng quan về danh sách học viên trong các lớp bạn dạy.</li>
+                    <li><b>Khóa học (Courses):</b> Cho phép xem thông tin chi tiết về các khóa học hiện có trong hệ thống.</li>
+                    <li><b>Trợ giúp (Help):</b> Truy cập nhanh vào trang hướng dẫn sử dụng này.</li>
+                </ul>
 
-            <h3 id="teacher-view">Giao diện Giáo viên</h3>
-            <ul>
-                <li><b>Lịch trình của tôi (My Schedule):</b> Hiển thị lịch giảng dạy của bạn trong khoảng ngày đã chọn.</li>
-                <li><b>Lớp học của tôi (My Classes):</b> Hiển thị các lớp bạn được phân công giảng dạy và cho phép xem danh sách học viên đã ghi danh.</li>
-                <li><b>Học viên của tôi (My Students):</b> Cung cấp cái nhìn về các học viên đã ghi danh vào lớp của bạn.</li>
-                <li><b>Khóa học (Courses):</b> Cho phép xem chi tiết các khóa học có sẵn.</li>
-                <li><b>Trợ giúp (Help):</b> Truy cập hướng dẫn trợ giúp này.</li>
-            </ul>
+                <h3 id="student-view">Giao diện Học viên</h3>
+                <ul>
+                    <li><b>Lịch học của tôi (My Schedule):</b> Hiển thị lịch học cá nhân của bạn theo tuần hoặc tháng.</li>
+                    <li><b>Lớp học của tôi (My Classes):</b> Liệt kê các lớp học mà bạn đã đăng ký và đang theo học.</li>
+                    <li><b>Khóa học (Courses):</b> Cho phép xem thông tin chi tiết về các khóa học hiện có để tham khảo.</li>
+                    <li><b>Trợ giúp (Help):</b> Truy cập nhanh vào trang hướng dẫn sử dụng này.</li>
+                </ul>
+            </section>
 
-            <h3 id="student-view">Giao diện Học viên</h3>
-            <ul>
-                <li><b>Lịch học của tôi (My Schedule):</b> Hiển thị lịch học cá nhân của bạn.</li>
-                <li><b>Lớp học của tôi (My Classes):</b> Hiển thị các lớp bạn hiện đang ghi danh.</li>
-                <li><b>Khóa học (Courses):</b> Cho phép xem chi tiết các khóa học có sẵn.</li>
-                <li><b>Trợ giúp (Help):</b> Truy cập hướng dẫn trợ giúp này.</li>
-            </ul>
+            <section id="common-actions">
+                <h2>Hành động phổ biến</h2>
+                <ul>
+                    <li><b>Thêm dữ liệu:</b> Nhấp vào nút 'Thêm' (hoặc biểu tượng tương tự) trong phần quản lý tương ứng. Một cửa sổ (dialog) sẽ hiện ra yêu cầu nhập thông tin cần thiết.</li>
+                    <li><b>Sửa dữ liệu:</b> Chọn một dòng trong bảng dữ liệu bạn muốn chỉnh sửa, sau đó nhấp vào nút 'Sửa'. Cửa sổ chỉnh sửa sẽ hiện ra với thông tin hiện tại đã được điền sẵn.</li>
+                    <li><b>Xóa dữ liệu:</b> Chọn một dòng trong bảng và nhấp nút 'Xóa'. Hệ thống thường sẽ yêu cầu xác nhận trước khi xóa vĩnh viễn. Lưu ý: Một số mục không thể xóa nếu đang có liên kết dữ liệu (ví dụ: không thể xóa giáo viên đang được phân công dạy).</li>
+                    <li><b>Lọc/Tải dữ liệu:</b> Sử dụng các bộ lọc (như chọn ngày, chọn trạng thái) và nhấp vào các nút như 'Tải lịch trình', 'Lọc', 'Tìm kiếm' để giới hạn phạm vi dữ liệu hiển thị.</li>
+                </ul>
+            </section>
 
-            <h2 id="common-actions">Hành động phổ biến</h2>
-            <ul>
-                <li><b>Thêm dữ liệu:</b> Nhấp vào nút 'Thêm' (hoặc tương tự) trong phần liên quan. Một hộp thoại sẽ xuất hiện để nhập thông tin cần thiết.</li>
-                <li><b>Sửa dữ liệu:</b> Chọn một hàng trong bảng bạn muốn chỉnh sửa, sau đó nhấp vào nút 'Sửa'. Một hộp thoại được điền sẵn dữ liệu hiện tại sẽ xuất hiện.</li>
-                <li><b>Xóa dữ liệu:</b> Chọn một hàng trong bảng và nhấp vào nút 'Xóa'. Bạn thường sẽ được yêu cầu xác nhận. Lưu ý: Một số mục không thể xóa nếu chúng đang được liên kết ở nơi khác (ví dụ: giáo viên được gán vào lớp học).</li>
-                <li><b>Lọc/Tải dữ liệu:</b> Sử dụng bộ chọn ngày hoặc các tùy chọn lọc khác (nếu có) và nhấp vào các nút như 'Tải lịch trình' hoặc 'Lọc' để thu hẹp dữ liệu hiển thị.</li>
-            </ul>
+            <section id="other-features">
+                <h2>Tính năng khác</h2>
+                <ul>
+                    <li><b>Xuất dữ liệu:</b> Quản trị viên và Giáo viên có thể xuất các bảng dữ liệu quan trọng (lịch trình, danh sách lớp, học viên...) sang định dạng Excel thông qua menu <b>Xuất file > Xuất ra Excel...</b>.</li>
+                    <li><b>Thay đổi giao diện:</b> Tùy chỉnh màu sắc và chủ đề giao diện của ứng dụng thông qua menu <b>Xem > Giao diện</b> để phù hợp với sở thích cá nhân.</li>
+                    <li><b>Đăng xuất:</b> Luôn sử dụng tùy chọn <b>Chính > Đăng xuất</b> để kết thúc phiên làm việc một cách an toàn, bảo vệ tài khoản của bạn.</li>
+                    <li><b>Thoát ứng dụng:</b> Sử dụng <b>Chính > Thoát</b> hoặc nút đóng cửa sổ [X] để đóng hoàn toàn ứng dụng. Sẽ có hộp thoại xác nhận để tránh thoát nhầm.</li>
+                </ul>
+            </section>
 
-            <h2 id="other-features">Tính năng khác</h2>
-            <ul>
-                <li><b>Xuất dữ liệu:</b> Quản trị viên và Giáo viên có thể xuất dữ liệu sang Excel thông qua menu <b>Xuất file > Xuất ra Excel...</b>. Chọn loại dữ liệu và chọn vị trí lưu.</li>
-                <li><b>Thay đổi giao diện:</b> Tùy chỉnh giao diện của ứng dụng bằng menu <b>Xem > Giao diện</b>.</li>
-                <li><b>Đăng xuất:</b> Sử dụng mục menu <b>Chính > Đăng xuất</b> để đăng xuất khỏi ứng dụng một cách an toàn.</li>
-                <li><b>Thoát:</b> Sử dụng mục menu <b>Chính > Thoát</b> hoặc nút đóng của cửa sổ để thoát ứng dụng. Bạn sẽ được yêu cầu xác nhận.</li>
-            </ul>
-
-            <h2 id="troubleshooting">Gỡ rối & Liên hệ</h2>
-            <p>
-                Nếu bạn gặp sự cố hoặc có câu hỏi không được đề cập ở đây:
-            </p>
-            <ul>
-                <li>Đảm bảo bạn đã nhập dữ liệu chính xác, đặc biệt là các trường bắt buộc trong hộp thoại.</li>
-                <li>Kiểm tra thanh trạng thái ở dưới cùng để xem có thông báo nào không.</li>
-                <li>Liên hệ quản trị viên hệ thống: <strong>zakhanh</strong></li>
-            </ul>
+            <section id="troubleshooting">
+                <h2>Gỡ rối & Liên hệ</h2>
+                <p>
+                    Nếu bạn gặp phải vấn đề kỹ thuật hoặc có câu hỏi chưa được giải đáp trong tài liệu này:
+                </p>
+                <ul>
+                    <li>Hãy đảm bảo rằng bạn đã nhập dữ liệu một cách chính xác, đặc biệt là các trường thông tin bắt buộc (thường được đánh dấu *).</li>
+                    <li>Kiểm tra thanh trạng thái ở phía dưới cùng của cửa sổ ứng dụng để xem có thông báo lỗi hoặc cảnh báo nào không.</li>
+                    <li>Khởi động lại ứng dụng có thể giải quyết các sự cố tạm thời.</li>
+                    <li>Liên hệ với quản trị viên hệ thống được chỉ định: <strong>zakhanh</strong></li>
+                    <li>Tham khảo <a href="https://github.com/Zakhanhrog/EduManagerZK/issues" target="_blank" rel="noopener noreferrer">Kênh báo lỗi trên GitHub</a> để báo cáo lỗi hoặc xem các vấn đề đã biết.</li>
+                </ul>
+            </section>
 
         </main>
 
-        <!-- Site Footer -->
         <footer class="site-footer">
             <div class="footer-container">
                 <div class="footer-section about">
                     <h4>Về EduZakhanh</h4>
-                    <p>EduZakhanh là một giải pháp quản lý giáo dục được thiết kế để đơn giản hóa các tác vụ hành chính và cải thiện giao tiếp trong môi trường học thuật. Chúng tôi tin vào sức mạnh của công nghệ để hỗ trợ giáo dục hiệu quả hơn.</p>
+                    <p>EduZakhanh là một giải pháp quản lý giáo dục toàn diện, được phát triển nhằm mục đích tối ưu hóa quy trình hành chính, nâng cao hiệu quả giảng dạy và học tập, đồng thời cải thiện sự tương tác trong cộng đồng giáo dục.</p>
                 </div>
                 <div class="footer-section quick-links">
                     <h4>Điều hướng nhanh</h4>
                     <ul>
-                        <li><a href="#welcome">Trang chủ (Chào mừng)</a></li>
+                        <li><a href="#welcome">Chào mừng</a></li>
                         <li><a href="#features">Tổng quan Tính năng</a></li>
                         <li><a href="#roles">Vai trò Người dùng</a></li>
-                        <li><a href="#common-actions">Hướng dẫn Sử dụng</a></li>
-                        <li><a href="#troubleshooting">Liên hệ & Hỗ trợ</a></li>
+                        <li><a href="#common-actions">Hành động Phổ biến</a></li>
+                        <li><a href="#troubleshooting">Hỗ trợ & Liên hệ</a></li>
                     </ul>
                 </div>
                 <div class="footer-section contact">
                     <h4>Thông tin liên hệ</h4>
                     <p class="contact-admin">Quản trị viên hệ thống: <strong>zakhanh</strong></p>
-                    <p>Đối với các yêu cầu hỗ trợ kỹ thuật hoặc báo cáo lỗi, vui lòng tham khảo <a href="https://github.com/Zakhanhrog/EduManagerZK/issues" target="_blank" rel="noopener noreferrer">Kênh báo lỗi trên GitHub</a>.</p>
-                    <p>Bạn cũng có thể tìm thêm tài liệu và mã nguồn tại <a href="https://github.com/Zakhanhrog/EduManagerZK" target="_blank" rel="noopener noreferrer">Kho lưu trữ GitHub</a>.</p>
-                     <p>Email: 18khanh.2003@gmail.com </p>
-                     <p>Địa chỉ: SN26, khu phố Thịnh Cầu, Quế Võ, Bắc Ninh</p>
+                    <p>Email hỗ trợ: <a href="mailto:18khanh.2003@gmail.com">18khanh.2003@gmail.com</a></p>
+                    <p>Địa chỉ: SN26, Khu phố Thịnh Cầu, Phường Phương Mao, TX. Quế Võ, T. Bắc Ninh</p>
+                    <p>Xem mã nguồn & báo lỗi tại: <a href="https://github.com/Zakhanhrog/EduManagerZK" target="_blank" rel="noopener noreferrer">GitHub Repository</a></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2024 EduZakhanh. Phát triển bởi Zakhanh. Bảo lưu mọi quyền.</p>
+                <p>© 2024 EduZakhanh. Thiết kế và phát triển bởi Zakhanh. Bảo lưu mọi quyền.</p>
             </div>
         </footer>
     </div>
 </div>
+<!-- Optional: Add JS for active sidebar link highlighting on scroll -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('main section[id]');
+        const navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+
+        const activateLink = (id) => {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                // Check both direct href and href within nested lists
+                if (link.getAttribute('href') === `#${id}` || link.closest('li')?.querySelector(`a[href="#${id}"]`)) {
+                    // Check if it's a parent link of a nested structure
+                    const parentLi = link.closest('ul')?.closest('li');
+                    if(parentLi && parentLi.querySelector('ul a') === link) {
+                        // It's a nested link, activate it
+                        link.classList.add('active');
+                        // Also activate its parent if needed
+                        const parentLink = parentLi.querySelector('a[href^="#"]');
+                        if(parentLink) parentLink.classList.add('active');
+                    } else {
+                        // It's a top-level link or the main link in a nested group
+                        link.classList.add('active');
+                    }
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.5) { // Activate when 50% visible
+                    activateLink(entry.target.id);
+                }
+            });
+        }, {
+            rootMargin: '0px 0px -40% 0px', // Trigger activation higher up the screen
+            threshold: 0.5 // Trigger when 50% of the element is visible
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Initial activation on load for the top section or hash
+        if (window.location.hash) {
+            activateLink(window.location.hash.substring(1));
+        } else if (sections.length > 0){
+            // Activate the first section if no hash
+            activateLink(sections[0].id);
+        }
+    });
+</script>
 </body>
 </html>
