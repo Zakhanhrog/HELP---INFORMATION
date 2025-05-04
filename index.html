@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduZakhanh - Trợ giúp & Thông tin</title>
-    <!-- Import Google Font -->
     <style>
-        /* Reset and Box Sizing */
+        /* --- Reset & Base --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -15,17 +14,20 @@
 
         html {
             scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+            font-size: 100%; /* Base font size */
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-            line-height: 1.7; /* Slightly increased line height for readability */
-            color: #495057; /* Softer black for body text */
-            background-color: #f8f9fa; /* Lighter, slightly warmer background */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; /* Modern font stack */
+            line-height: 1.7; /* Improved readability */
+            color: #343a40; /* Slightly softer default text */
+            background-color: #fdfdff; /* Very light, almost white background */
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            font-size: 16px; /* Base font size */
+            font-size: 1rem; /* Equivalent to 16px if html font-size is 100% */
+            -webkit-font-smoothing: antialiased; /* Smoother fonts on Mac */
+            -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
         }
 
         .page-wrapper {
@@ -33,30 +35,48 @@
             flex-grow: 1;
         }
 
-        /* Sidebar Styling */
+        /* --- Sidebar Styling --- */
         .sidebar {
-            width: 260px; /* Slightly wider sidebar */
+            width: 280px; /* Slightly wider for more space */
             background-color: #ffffff;
-            border-right: 1px solid #dee2e6; /* Softer border color */
+            border-right: 1px solid #e9ecef; /* Softer border */
             height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
-            padding: 30px 20px;
+            padding: 35px 25px; /* Increased padding */
             overflow-y: auto;
-            z-index: 100; /* Ensure sidebar is on top */
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
-            transition: width 0.3s ease; /* Smooth transition for potential future collapse */
+            z-index: 1000; /* Ensure sidebar is on top */
+            box-shadow: 3px 0 15px rgba(0, 0, 0, 0.04); /* More subtle shadow */
+            transition: width 0.3s ease, transform 0.3s ease; /* Smooth transition */
         }
 
+        /* Custom scrollbar for sidebar */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #f8f9fa;
+            border-radius: 3px;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #ced4da;
+            border-radius: 3px;
+        }
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background-color: #adb5bd;
+        }
+
+
         .sidebar h3 {
-            font-size: 1.3em;
-            font-weight: 600; /* Bolder heading */
-            color: #0056b3; /* Primary blue */
-            margin-bottom: 25px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #e9ecef; /* Lighter border */
+            font-size: 1.35em; /* Slightly larger */
+            font-weight: 700; /* Bolder heading */
+            color: #0d6efd; /* Vibrant blue */
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f3f5; /* Lighter border */
             text-align: center;
+            letter-spacing: 0.5px;
         }
 
         .sidebar ul {
@@ -64,49 +84,85 @@
         }
 
         .sidebar li {
-            margin-bottom: 5px; /* Slightly reduced margin */
+            margin-bottom: 6px; /* Fine-tuned margin */
         }
 
         .sidebar a {
             text-decoration: none;
-            color: #343a40; /* Darker grey for links */
-            display: block;
-            padding: 10px 15px; /* Increased padding */
-            border-radius: 6px; /* More rounded corners */
-            transition: all 0.3s ease; /* Smooth transition for all properties */
-            font-size: 0.95em;
-            position: relative; /* For potential pseudo-elements */
-            font-weight: 500; /* Slightly bolder */
+            color: #495057; /* Darker grey for better contrast */
+            display: flex; /* Use flex for potential icon alignment */
+            align-items: center;
+            padding: 12px 18px; /* Generous padding */
+            border-radius: 8px; /* More rounded corners */
+            transition: all 0.25s ease-in-out; /* Smooth transition for all properties */
+            font-size: 0.98em;
+            font-weight: 500; /* Medium weight */
+            position: relative;
+            overflow: hidden; /* For potential background effects */
         }
+        /* Optional: Add subtle icon space */
+        /* .sidebar a::before { content: ''; display: inline-block; width: 18px; height: 18px; margin-right: 10px; vertical-align: middle; } */
+
 
         .sidebar a:hover,
-        .sidebar a:focus,
-        .sidebar a.active { /* Style for active link (requires JS or server-side logic to add 'active' class) */
-            background-color: #e7f1ff; /* Lighter blue background */
-            color: #0056b3; /* Primary blue text */
-            transform: translateX(5px); /* Subtle shift effect */
+        .sidebar a:focus {
+            background-color: #eef5ff; /* Lighter blue background */
+            color: #0a58ca; /* Darker primary blue text */
+            transform: translateX(4px); /* Subtle shift effect */
+            box-shadow: 0 2px 5px rgba(13, 110, 253, 0.1); /* Subtle blue shadow */
         }
+        .sidebar a.active {
+            background-color: #0d6efd; /* Solid blue background for active */
+            color: #ffffff; /* White text for active */
+            font-weight: 600; /* Bolder active link */
+            box-shadow: 0 4px 10px rgba(13, 110, 253, 0.2); /* Stronger blue shadow */
+            transform: translateX(0); /* No shift for active */
+        }
+        .sidebar a.active:hover {
+            background-color: #0b5ed7; /* Slightly darker blue on hover */
+        }
+
 
         /* Style for nested links */
+        .sidebar ul ul {
+            margin-top: 5px; /* Space before nested list */
+            margin-left: 5px; /* Slight indent for the UL itself */
+            border-left: 2px solid #e9ecef; /* Visual indicator for nesting */
+            padding-left: 15px; /* Space after the border */
+        }
+
         .sidebar ul ul a {
-            padding-left: 35px; /* Indent nested links */
-            font-size: 0.9em; /* Smaller font size for nested */
+            padding-left: 20px; /* Indent nested links text */
+            font-size: 0.92em; /* Smaller font size for nested */
             color: #6c757d; /* Lighter color for nested */
-            font-weight: 400;
+            font-weight: 400; /* Normal weight */
         }
         .sidebar ul ul a:hover,
-        .sidebar ul ul a:focus,
-        .sidebar ul ul a.active {
-            background-color: #e7f1ff; /* Same hover background */
-            color: #004a99; /* Slightly darker blue on hover */
+        .sidebar ul ul a:focus {
+            background-color: #f1f3f5; /* Very light grey hover */
+            color: #343a40; /* Darker text on hover */
             transform: translateX(3px); /* Less shift for nested */
+            box-shadow: none; /* No shadow for nested hover */
+        }
+        .sidebar ul ul a.active {
+            background-color: #eef5ff; /* Lighter blue background */
+            color: #0a58ca; /* Darker primary blue text */
+            font-weight: 500; /* Slightly bolder active nested */
+            transform: translateX(0);
+            box-shadow: none;
+        }
+        /* Highlight parent when child is active */
+        .sidebar li:has(ul a.active) > a {
+            background-color: #eef5ff;
+            color: #0a58ca;
+            font-weight: 500;
         }
 
 
-        /* Content Area Styling */
+        /* --- Content Area Styling --- */
         .content-area {
             flex-grow: 1;
-            margin-left: 260px; /* Match sidebar width */
+            margin-left: 280px; /* Match sidebar width */
             display: flex;
             flex-direction: column;
             transition: margin-left 0.3s ease; /* Smooth transition if sidebar width changes */
@@ -114,154 +170,198 @@
 
         .main-content {
             flex-grow: 1;
-            padding: 40px 50px; /* Increased padding */
+            padding: 50px 60px; /* Increased padding */
             background-color: #ffffff;
-            border-radius: 8px; /* Rounded corners for content */
-            margin: 20px; /* Add margin around the content */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* More prominent shadow */
+            border-radius: 12px; /* More rounded corners */
+            margin: 25px; /* Add margin around the content */
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.07); /* More prominent, softer shadow */
         }
 
-        /* Heading Styles */
+        /* --- Heading Styles --- */
         .main-content h1 {
-            font-size: 2.4em; /* Larger H1 */
+            font-size: 2.6em; /* Larger H1 */
             font-weight: 700;
-            color: #2c3e50; /* Dark slate color */
+            color: #212529; /* Darker, near black */
             text-align: center;
-            margin-bottom: 50px; /* More space below H1 */
+            margin-bottom: 60px; /* More space below H1 */
             position: relative;
-            padding-bottom: 15px;
+            padding-bottom: 20px;
+            letter-spacing: -0.5px;
         }
-        /* Optional: Add an underline effect to H1 */
         .main-content h1::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: #0056b3; /* Primary blue underline */
-            border-radius: 2px;
+            width: 90px; /* Wider underline */
+            height: 5px; /* Thicker underline */
+            background: linear-gradient(90deg, #0d6efd, #6f42c1); /* Gradient underline */
+            border-radius: 3px;
         }
 
         .main-content h2 {
-            font-size: 1.8em; /* Larger H2 */
+            font-size: 2em; /* Larger H2 */
             font-weight: 600;
-            color: #0056b3; /* Primary blue for H2 */
-            margin-top: 45px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #eaf2f8; /* Lighter, thicker border */
-            position: relative; /* For potential icon or effect */
+            color: #0d6efd; /* Primary blue */
+            margin-top: 55px; /* Increased spacing */
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #dee2e6; /* Lighter, thinner border */
+            position: relative;
+            display: flex; /* For potential icon */
+            align-items: center;
+            gap: 10px;
         }
-        /* Style the first H2 differently (no top margin) */
+        /* Optional: Add icon before H2 */
+        /* .main-content h2::before { content: '❖'; color: #6f42c1; font-size: 0.9em; } */
+
         .main-content h2:first-of-type {
             margin-top: 0;
         }
 
         .main-content h3 {
-            font-size: 1.4em; /* Larger H3 */
+            font-size: 1.5em; /* Larger H3 */
             font-weight: 600;
-            color: #1a7fa8; /* Teal-ish blue for H3 */
-            margin-top: 30px;
-            margin-bottom: 15px;
+            color: #6f42c1; /* Purple accent color */
+            margin-top: 35px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 15px; /* Space for pseudo element */
+        }
+        /* Add a small vertical bar before H3 */
+        .main-content h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 70%;
+            background-color: #6f42c1;
+            border-radius: 2px;
         }
 
-        /* Text and List Styles */
+
+        /* --- Text and List Styles --- */
         .main-content p {
-            margin-bottom: 18px;
-            color: #495057; /* Consistent soft black */
-            line-height: 1.8; /* Even more line height for paragraphs */
+            margin-bottom: 20px; /* Increased paragraph spacing */
+            color: #495057; /* Consistent readable grey */
+            line-height: 1.8; /* Generous line height */
         }
 
         .main-content ul {
-            margin-left: 30px; /* Standard indentation */
-            margin-bottom: 18px;
-            list-style-type: disc; /* Default bullet points */
+            margin-left: 25px; /* Standard indentation */
+            margin-bottom: 20px;
+            list-style-type: none; /* Remove default bullets */
+            padding-left: 0;
         }
         .main-content ul li {
-            margin-bottom: 10px;
-            padding-left: 5px; /* Space between bullet and text */
+            margin-bottom: 12px;
+            padding-left: 25px; /* Space for custom bullet */
+            position: relative;
         }
+        /* Custom bullets */
+        .main-content ul li::before {
+            content: '•'; /* Or use an SVG icon */
+            color: #0d6efd; /* Primary blue bullet */
+            font-weight: bold;
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            top: 1px; /* Fine-tune vertical alignment */
+            font-size: 1.2em;
+        }
+
+        /* Different bullets for nested lists */
+        .main-content ul ul {
+            margin-top: 10px;
+            margin-left: 30px; /* Further indent nested lists */
+        }
+        .main-content ul ul li::before {
+            content: '◦'; /* Open circle */
+            color: #6f42c1; /* Accent color */
+            font-size: 1em;
+            top: 2px;
+        }
+
 
         .main-content hr {
-            display: none; /* Keep HR hidden, use heading borders instead */
+            display: none; /* Keep HR hidden */
         }
 
-        /* Link Styles in Content */
+        /* --- Link Styles in Content --- */
         .main-content a {
-            color: #0069d9; /* Slightly brighter blue for links */
+            color: #0d6efd; /* Vibrant blue */
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 600; /* Stand out */
             transition: all 0.2s ease;
             position: relative;
-            background-image: linear-gradient(to right, #0069d9, #0069d9);
-            background-size: 0% 2px; /* Start with underline hidden */
+            /* Subtle underline effect */
+            background-image: linear-gradient(to right, rgba(13, 110, 253, 0.8), rgba(111, 66, 193, 0.8));
+            background-size: 0% 2px;
             background-repeat: no-repeat;
             background-position: left bottom;
+            padding-bottom: 2px; /* Space for underline */
         }
 
         .main-content a:hover,
         .main-content a:focus {
-            color: #0056b3; /* Darker blue on hover */
-            /* text-decoration: underline; */
+            color: #0a58ca; /* Darker blue */
             background-size: 100% 2px; /* Animate underline */
+            outline: none; /* Remove focus outline if using other indicators */
         }
 
-        /* Emphasis Styles */
+        /* --- Emphasis Styles --- */
         .main-content b,
         .main-content strong {
-            color: #212529; /* Darker color for emphasis */
-            font-weight: 600; /* Ensure boldness */
+            color: #000; /* Near black for strong emphasis */
+            font-weight: 600;
         }
 
-        /* Footer Styling */
+        /* --- Footer Styling --- */
         .site-footer {
-            background-color: #2c3e50; /* Dark slate background */
+            background-color: #212529; /* Dark background */
             color: #adb5bd; /* Light grey text */
-            padding: 50px 0 25px 0; /* Increased padding */
-            border-top: 5px solid #0056b3; /* Thicker primary blue top border */
+            padding: 70px 0 30px 0; /* Increased padding */
+            border-top: 6px solid #0d6efd; /* Thicker primary blue top border */
             font-size: 0.95em;
             margin-top: auto; /* Push footer to bottom */
+            clip-path: polygon(0 10px, 100% 0, 100% 100%, 0% 100%); /* Subtle slanted top */
+            position: relative; /* Needed for clip-path */
         }
 
         .footer-container {
-            max-width: 1200px;
+            max-width: 1320px; /* Wider container */
             margin: 0 auto;
-            padding: 0 40px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 40px; /* Increased gap */
-        }
-
-        .footer-section {
-            flex: 1;
-            min-width: 240px; /* Slightly larger min-width */
+            padding: 0 50px; /* Increased padding */
+            display: grid; /* Use grid for layout */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+            gap: 50px; /* Generous gap */
         }
 
         .footer-section h4 {
-            font-size: 1.25em;
-            font-weight: 600;
+            font-size: 1.3em;
+            font-weight: 700; /* Bolder footer heading */
             color: #ffffff; /* White heading */
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             position: relative;
-            padding-bottom: 12px;
+            padding-bottom: 15px;
+            letter-spacing: 0.5px;
         }
-        /* Underline effect for footer headings */
         .footer-section h4::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 40px;
+            width: 50px;
             height: 3px;
-            background-color: #007bff; /* Brighter blue accent */
-            border-radius: 1px;
+            background: linear-gradient(90deg, #0d6efd, #6f42c1); /* Gradient accent */
+            border-radius: 2px;
         }
 
         .footer-section p {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             line-height: 1.8;
             color: #ced4da; /* Lighter grey for text */
         }
@@ -273,43 +373,26 @@
         }
 
         .footer-section li {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .footer-section a {
-            color: #ced4da; /* Lighter grey for links */
+            color: #e9ecef; /* Lighter grey for links */
             text-decoration: none;
             transition: all 0.3s ease;
-            font-weight: normal; /* Normal weight for footer links */
-            position: relative; /* For potential effects */
-            padding-bottom: 2px; /* Space for potential underline */
+            font-weight: 400; /* Normal weight */
+            position: relative;
+            padding-bottom: 3px;
+            display: inline-block; /* Needed for transform */
         }
 
         .footer-section a:hover,
         .footer-section a:focus {
             color: #ffffff; /* White on hover */
-            text-decoration: none; /* Remove default underline */
-            padding-left: 5px; /* Subtle move effect */
+            text-decoration: none;
+            transform: translateX(5px); /* Subtle move effect */
+            outline: none;
         }
-        /* Optional: Add a subtle bottom border on hover */
-        .footer-section a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            display: block;
-            margin-top: 2px;
-            right: 0;
-            background: #ffffff;
-            transition: width .2s ease;
-            -webkit-transition: width .2s ease;
-        }
-        .footer-section a:hover::after {
-            width: 100%;
-            left: 0;
-            background: #ffffff;
-        }
-
 
         .footer-section .contact-admin strong {
             color: #ffffff; /* White for admin name */
@@ -318,33 +401,56 @@
 
         .footer-bottom {
             text-align: center;
-            margin-top: 40px;
-            padding-top: 25px;
+            margin-top: 60px; /* More space above */
+            padding-top: 30px;
             border-top: 1px solid #495057; /* Slightly darker border */
             font-size: 0.9em;
             color: #adb5bd; /* Light grey */
         }
         .footer-bottom p {
             color: #adb5bd; /* Ensure paragraph inherits color */
+            margin: 0;
         }
 
-        /* Responsive Design */
+        /* --- Responsive Design --- */
+        @media (max-width: 1200px) {
+            .footer-container {
+                max-width: 1140px;
+            }
+        }
+
         @media (max-width: 992px) {
+            .sidebar {
+                width: 260px;
+            }
+            .content-area {
+                margin-left: 260px;
+            }
             .main-content {
-                padding: 30px 35px;
+                padding: 40px 45px;
+                margin: 20px;
             }
             .main-content h1 {
-                font-size: 2.1em;
+                font-size: 2.3em;
+                margin-bottom: 50px;
             }
             .main-content h2 {
-                font-size: 1.6em;
+                font-size: 1.8em;
+                margin-top: 45px;
             }
             .main-content h3 {
-                font-size: 1.3em;
+                font-size: 1.4em;
+                margin-top: 30px;
+            }
+            .footer-container {
+                max-width: 960px;
+                padding: 0 40px;
             }
         }
 
         @media (max-width: 768px) {
+            body { font-size: 0.95rem; } /* Slightly smaller base font */
+
             .page-wrapper {
                 flex-direction: column;
             }
@@ -354,74 +460,132 @@
                 position: static; /* Change position */
                 border-right: none;
                 border-bottom: 1px solid #dee2e6;
-                z-index: auto;
+                z-index: 500;
                 box-shadow: none; /* Remove shadow on mobile */
-                padding: 20px; /* Adjust padding */
+                padding: 20px 25px; /* Adjust padding */
+                overflow-y: visible; /* Disable scroll */
             }
             .sidebar h3 {
                 text-align: left; /* Align left on mobile */
-                margin-bottom: 15px;
+                margin-bottom: 20px;
+                font-size: 1.25em;
             }
+            .sidebar ul ul {
+                border-left: none;
+                padding-left: 10px;
+            }
+
             .content-area {
                 margin-left: 0; /* Remove margin */
             }
             .main-content {
-                padding: 25px 20px; /* Adjust padding */
+                padding: 30px 25px; /* Adjust padding */
                 margin: 15px; /* Adjust margin */
-                border-radius: 6px; /* Slightly less rounded on mobile */
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); /* Lighter shadow */
+                border-radius: 10px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06); /* Lighter shadow */
             }
             .main-content h1 {
-                font-size: 1.9em;
-                margin-bottom: 30px;
-                padding-bottom: 10px;
+                font-size: 2em;
+                margin-bottom: 40px;
+                padding-bottom: 15px;
             }
             .main-content h1::after { /* Adjust underline */
-                width: 60px;
-                height: 3px;
+                width: 70px;
+                height: 4px;
             }
             .main-content h2 {
-                font-size: 1.5em;
-                margin-top: 30px;
+                font-size: 1.6em;
+                margin-top: 40px;
             }
             .main-content h3 {
-                font-size: 1.25em;
-                margin-top: 25px;
+                font-size: 1.3em;
+                margin-top: 30px;
+                padding-left: 12px;
             }
+            .main-content h3::before {
+                width: 3px;
+            }
+            .main-content ul { margin-left: 15px; }
+            .main-content ul li { padding-left: 20px; }
+            .main-content ul ul { margin-left: 20px; }
 
             /* Footer Responsive Adjustments */
+            .site-footer {
+                padding: 50px 0 25px 0;
+                clip-path: none; /* Remove slant on mobile */
+            }
             .footer-container {
-                flex-direction: column; /* Stack sections */
-                padding: 0 25px;
-                gap: 30px;
+                grid-template-columns: 1fr; /* Stack sections */
+                padding: 0 30px;
+                gap: 35px;
+                max-width: 100%;
             }
             .footer-section {
                 min-width: auto;
-                margin-bottom: 15px;
+                margin-bottom: 10px;
             }
             .footer-section h4 {
-                margin-bottom: 15px;
-                font-size: 1.2em;
+                margin-bottom: 20px;
+                font-size: 1.25em;
             }
             .footer-bottom {
-                margin-top: 25px;
-                padding-top: 20px;
-                font-size: 0.85em; /* Smaller text in footer bottom */
+                margin-top: 40px;
+                padding-top: 25px;
+                font-size: 0.88em; /* Smaller text in footer bottom */
             }
         }
 
-        /* Additional subtle animation for content loading (optional) */
+        /* --- Animations & Effects --- */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .main-content section { /* Assuming content is wrapped in sections, or apply to h2/p */
-            animation: fadeIn 0.5s ease-out forwards;
-            /* Stagger animation if needed with animation-delay */
+        /* Apply fade in to sections, staggered */
+        .main-content section {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0; /* Start hidden */
+        }
+        .main-content section:nth-child(1) { animation-delay: 0.1s; }
+        .main-content section:nth-child(2) { animation-delay: 0.2s; }
+        .main-content section:nth-child(3) { animation-delay: 0.3s; }
+        .main-content section:nth-child(4) { animation-delay: 0.4s; }
+        .main-content section:nth-child(5) { animation-delay: 0.5s; }
+        .main-content section:nth-child(6) { animation-delay: 0.6s; }
+        .main-content section:nth-child(7) { animation-delay: 0.7s; }
+
+
+        /* Style specific common action keywords */
+        .main-content b[style*="color:#28a745;"] { /* Add */
+            color: #198754 !important; /* Bootstrap green */
+            background-color: rgba(25, 135, 84, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-shadow: none !important;
+        }
+        .main-content b[style*="color:#ffc107;"] { /* Edit */
+            color: #fd7e14 !important; /* Bootstrap orange */
+            background-color: rgba(253, 126, 20, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-shadow: none !important;
+        }
+        .main-content b[style*="color:#dc3545;"] { /* Delete */
+            color: #dc3545 !important; /* Bootstrap red */
+            background-color: rgba(220, 53, 69, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-shadow: none !important;
         }
 
     </style>
+    <!-- Consider adding Google Fonts if 'Inter' is not widely available -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="page-wrapper">
@@ -433,10 +597,9 @@
             <li><a href="#roles">Vai trò & Quyền hạn</a></li>
             <li><a href="#features">Tính năng cốt lõi</a>
                 <ul>
-                    <!-- Removed inline styles, rely on CSS rules -->
-                    <li><a href="#admin-view">- Quản trị viên</a></li>
-                    <li><a href="#teacher-view">- Giáo viên</a></li>
-                    <li><a href="#student-view">- Học viên</a></li>
+                    <li><a href="#admin-view">Quản trị viên</a></li>
+                    <li><a href="#teacher-view">Giáo viên</a></li>
+                    <li><a href="#student-view">Học viên</a></li>
                 </ul>
             </li>
             <li><a href="#common-actions">Hành động phổ biến</a></li>
@@ -448,32 +611,31 @@
     <div class="content-area">
         <main class="main-content">
 
-            <!-- Added sections for potential animation hook -->
             <section id="welcome">
                 <h1>EduZakhanh - Trợ giúp & Thông tin</h1>
                 <h2>Chào mừng</h2>
                 <p>
-                    Chào mừng bạn đến với Hệ thống Quản lý Giáo dục EduZakhanh! Hướng dẫn này cung cấp thông tin về cách điều hướng và sử dụng các tính năng của ứng dụng một cách hiệu quả nhất.
+                    Chào mừng bạn đến với Hệ thống Quản lý Giáo dục EduZakhanh! Hướng dẫn này cung cấp thông tin chi tiết và hướng dẫn bạn cách điều hướng, sử dụng hiệu quả các tính năng mạnh mẽ của ứng dụng.
                 </p>
             </section>
 
             <section id="navigation">
                 <h2>Điều hướng chung</h2>
                 <ul>
-                    <li>Sử dụng các <b>tab điều hướng chính</b> (ví dụ: <b>Lịch trình</b>, <b>Lớp học</b>, <b>Học viên</b>...) để truy cập các phân hệ quản lý khác nhau của hệ thống.</li>
-                    <li>Dữ liệu thường được trình bày dưới dạng <b>bảng biểu</b>. Bạn có thể nhấp vào <b>tiêu đề cột</b> để sắp xếp dữ liệu tăng dần hoặc giảm dần.</li>
-                    <li>Các nút chức năng như <b style="color:#28a745;">Thêm</b>, <b style="color:#ffc107; text-shadow: 1px 1px 1px #aaa;">Sửa</b>, và <b style="color:#dc3545;">Xóa</b> thường được đặt gần bảng dữ liệu tương ứng.</li>
-                    <li>Sử dụng thanh <b>menu chính</b> (<b>Chính</b>, <b>Xuất file</b>, <b>Xem</b>, <b>Trợ giúp</b>) cho các thao tác toàn cục như đăng xuất, xuất báo cáo, thay đổi giao diện, và truy cập trang trợ giúp này.</li>
+                    <li>Sử dụng các <b>tab điều hướng chính</b> (ví dụ: <b>Lịch trình</b>, <b>Lớp học</b>, <b>Học viên</b>...) được bố trí rõ ràng để truy cập các phân hệ quản lý khác nhau của hệ thống.</li>
+                    <li>Dữ liệu thường được trình bày trực quan dưới dạng <b>bảng biểu</b>. Bạn có thể nhấp vào <b>tiêu đề cột</b> để sắp xếp dữ liệu linh hoạt theo thứ tự tăng dần hoặc giảm dần.</li>
+                    <li>Các nút chức năng quan trọng như <b style="color:#28a745;">Thêm</b>, <b style="color:#ffc107; text-shadow: 1px 1px 1px #aaa;">Sửa</b>, và <b style="color:#dc3545;">Xóa</b> thường được đặt ở vị trí thuận tiện, gần bảng dữ liệu tương ứng để thao tác nhanh chóng.</li>
+                    <li>Truy cập thanh <b>menu chính</b> (<b>Chính</b>, <b>Xuất file</b>, <b>Xem</b>, <b>Trợ giúp</b>) ở góc trên cùng cho các tác vụ toàn cục như đăng xuất an toàn, xuất báo cáo đa dạng, tùy chỉnh giao diện, và truy cập trang trợ giúp này.</li>
                 </ul>
             </section>
 
             <section id="roles">
                 <h2>Vai trò và Quyền hạn</h2>
-                <p>Chức năng và dữ liệu bạn có thể thấy và tương tác phụ thuộc vào vai trò tài khoản của bạn:</p>
+                <p>Chức năng và dữ liệu bạn có thể xem và tương tác được cá nhân hóa dựa trên vai trò được gán cho tài khoản của bạn:</p>
                 <ul>
-                    <li><b>Quản trị viên (Administrator):</b> Có toàn quyền truy cập mọi tính năng, bao gồm quản lý tài khoản người dùng, cấu hình hệ thống và xem nhật ký hoạt động chi tiết.</li>
-                    <li><b>Giáo viên (Teacher):</b> Có thể xem lịch dạy cá nhân, quản lý điểm danh và thông tin học viên trong các lớp được phân công, xem thông tin khóa học.</li>
-                    <li><b>Học viên (Student):</b> Có thể xem lịch học cá nhân, thông tin các lớp đã đăng ký, kết quả học tập (nếu có) và thông tin khóa học chung.</li>
+                    <li><b>Quản trị viên (Administrator):</b> Sở hữu toàn quyền truy cập và kiểm soát mọi tính năng, bao gồm quản lý tài khoản người dùng, cấu hình hệ thống nâng cao, và xem nhật ký hoạt động chi tiết, minh bạch.</li>
+                    <li><b>Giáo viên (Teacher):</b> Dễ dàng xem lịch dạy cá nhân, quản lý điểm danh và thông tin học viên trong các lớp được phân công. Truy cập thông tin chi tiết về các khóa học liên quan.</li>
+                    <li><b>Học viên (Student):</b> Thuận tiện xem lịch học cá nhân, thông tin các lớp đã đăng ký, theo dõi kết quả học tập (nếu được kích hoạt) và tham khảo thông tin các khóa học chung của trung tâm.</li>
                 </ul>
             </section>
 
@@ -482,66 +644,66 @@
 
                 <h3 id="admin-view">Giao diện Quản trị viên</h3>
                 <ul>
-                    <li><b>Lịch trình (Schedule):</b> Xem, tạo mới, chỉnh sửa và xóa lịch học. Sử dụng bộ lọc ngày và nút 'Tải lịch trình' để xem các khoảng thời gian mong muốn. Hệ thống sẽ cảnh báo các xung đột tiềm ẩn (trùng thời gian/giáo viên/phòng học).</li>
-                    <li><b>Lớp học (Classes):</b> Quản lý thông tin lớp học, phân công khóa học và giáo viên phụ trách. Thêm hoặc xóa học viên khỏi danh sách lớp (ghi danh). Thiết lập sĩ số tối đa cho từng lớp.</li>
-                    <li><b>Học viên (Students):</b> Quản lý hồ sơ chi tiết của học viên (thêm, sửa, xóa). Đảm bảo thông tin liên hệ, đặc biệt là số điện thoại, là chính xác để phục vụ việc đăng ký tài khoản.</li>
-                    <li><b>Giáo viên (Teachers):</b> Quản lý hồ sơ giáo viên. Mã ID Giáo viên (tự động tạo hoặc nhập khi tạo mới) là cần thiết cho việc đăng ký tài khoản Giáo viên.</li>
-                    <li><b>Khóa học (Courses):</b> Định nghĩa và quản lý danh mục các khóa học mà trung tâm cung cấp.</li>
-                    <li><b>Phòng học (Rooms):</b> Quản lý danh sách phòng học (vật lý hoặc trực tuyến), bao gồm thông tin về sức chứa và loại phòng.</li>
-                    <li><b>Tài khoản (Accounts):</b> Xem danh sách tài khoản người dùng (Giáo viên, Học viên). Có quyền đặt lại mật khẩu khi cần thiết.</li>
-                    <li><b>Nhật ký (Logs):</b> Theo dõi lịch sử các hành động quan trọng được thực hiện trong hệ thống (cập nhật tự động theo thời gian thực).</li>
-                    <li><b>Trợ giúp (Help):</b> Truy cập nhanh vào trang hướng dẫn sử dụng này.</li>
+                    <li><b>Lịch trình (Schedule):</b> Quản lý toàn diện lịch học: xem, tạo mới, chỉnh sửa và xóa. Sử dụng bộ lọc ngày mạnh mẽ và nút 'Tải lịch trình' để xem lịch theo các khoảng thời gian tùy chỉnh. Hệ thống thông minh cảnh báo các xung đột tiềm ẩn (trùng thời gian/giáo viên/phòng học).</li>
+                    <li><b>Lớp học (Classes):</b> Quản lý chi tiết thông tin lớp học, phân công khóa học và giáo viên phụ trách. Thực hiện ghi danh (thêm/xóa) học viên vào lớp. Thiết lập sĩ số tối đa để đảm bảo chất lượng giảng dạy.</li>
+                    <li><b>Học viên (Students):</b> Quản lý hồ sơ học viên đầy đủ và chính xác (thêm, sửa, xóa). Đảm bảo thông tin liên hệ, đặc biệt là số điện thoại, luôn được cập nhật để hỗ trợ việc đăng ký tài khoản và liên lạc.</li>
+                    <li><b>Giáo viên (Teachers):</b> Quản lý hồ sơ giáo viên chuyên nghiệp. Mã ID Giáo viên (tự động tạo hoặc nhập thủ công) là thông tin cần thiết cho việc đăng ký tài khoản Giáo viên.</li>
+                    <li><b>Khóa học (Courses):</b> Định nghĩa và quản lý danh mục các khóa học đa dạng mà trung tâm cung cấp, bao gồm mô tả, học phí và các thông tin liên quan khác.</li>
+                    <li><b>Phòng học (Rooms):</b> Quản lý danh sách phòng học (bao gồm cả phòng vật lý và trực tuyến), với thông tin chi tiết về sức chứa, trang thiết bị và loại phòng.</li>
+                    <li><b>Tài khoản (Accounts):</b> Xem và quản lý danh sách tài khoản người dùng (Giáo viên, Học viên). Cung cấp chức năng đặt lại mật khẩu khi cần thiết để hỗ trợ người dùng.</li>
+                    <li><b>Nhật ký (Logs):</b> Theo dõi lịch sử chi tiết các hành động quan trọng được thực hiện trong hệ thống, cập nhật tự động theo thời gian thực để đảm bảo tính minh bạch và kiểm soát.</li>
+                    <li><b>Trợ giúp (Help):</b> Truy cập nhanh chóng và dễ dàng vào trang hướng dẫn sử dụng chi tiết này bất cứ lúc nào.</li>
                 </ul>
 
                 <h3 id="teacher-view">Giao diện Giáo viên</h3>
                 <ul>
-                    <li><b>Lịch trình của tôi (My Schedule):</b> Hiển thị lịch giảng dạy cá nhân của bạn trong khoảng thời gian được chọn.</li>
-                    <li><b>Lớp học của tôi (My Classes):</b> Liệt kê các lớp bạn đang phụ trách, cho phép xem danh sách học viên đã ghi danh và các thông tin liên quan.</li>
-                    <li><b>Học viên của tôi (My Students):</b> Cung cấp cái nhìn tổng quan về danh sách học viên trong các lớp bạn dạy.</li>
-                    <li><b>Khóa học (Courses):</b> Cho phép xem thông tin chi tiết về các khóa học hiện có trong hệ thống.</li>
-                    <li><b>Trợ giúp (Help):</b> Truy cập nhanh vào trang hướng dẫn sử dụng này.</li>
+                    <li><b>Lịch trình của tôi (My Schedule):</b> Hiển thị rõ ràng lịch giảng dạy cá nhân của bạn trong khoảng thời gian đã chọn, giúp bạn dễ dàng sắp xếp công việc.</li>
+                    <li><b>Lớp học của tôi (My Classes):</b> Liệt kê danh sách các lớp bạn đang phụ trách, cho phép xem nhanh danh sách học viên đã ghi danh và các thông tin lớp học cần thiết.</li>
+                    <li><b>Học viên của tôi (My Students):</b> Cung cấp cái nhìn tổng quan, tiện lợi về danh sách học viên trong tất cả các lớp bạn đang giảng dạy.</li>
+                    <li><b>Khóa học (Courses):</b> Cho phép xem thông tin chi tiết về các khóa học hiện có trong hệ thống để nắm rõ nội dung giảng dạy.</li>
+                    <li><b>Trợ giúp (Help):</b> Truy cập nhanh vào trang hướng dẫn sử dụng này để nhận hỗ trợ khi cần.</li>
                 </ul>
 
                 <h3 id="student-view">Giao diện Học viên</h3>
                 <ul>
-                    <li><b>Lịch học của tôi (My Schedule):</b> Hiển thị lịch học cá nhân của bạn theo tuần hoặc tháng.</li>
-                    <li><b>Lớp học của tôi (My Classes):</b> Liệt kê các lớp học mà bạn đã đăng ký và đang theo học.</li>
-                    <li><b>Khóa học (Courses):</b> Cho phép xem thông tin chi tiết về các khóa học hiện có để tham khảo.</li>
-                    <li><b>Trợ giúp (Help):</b> Truy cập nhanh vào trang hướng dẫn sử dụng này.</li>
+                    <li><b>Lịch học của tôi (My Schedule):</b> Hiển thị lịch học cá nhân của bạn một cách trực quan theo tuần hoặc tháng, giúp bạn không bỏ lỡ buổi học nào.</li>
+                    <li><b>Lớp học của tôi (My Classes):</b> Liệt kê chi tiết các lớp học mà bạn đã đăng ký và đang theo học, cùng với thông tin giáo viên và phòng học.</li>
+                    <li><b>Khóa học (Courses):</b> Cho phép bạn duyệt và xem thông tin chi tiết về các khóa học hiện có của trung tâm để tham khảo hoặc đăng ký thêm.</li>
+                    <li><b>Trợ giúp (Help):</b> Truy cập nhanh vào trang hướng dẫn sử dụng này để tìm hiểu thêm về hệ thống.</li>
                 </ul>
             </section>
 
             <section id="common-actions">
                 <h2>Hành động phổ biến</h2>
                 <ul>
-                    <li><b>Thêm dữ liệu:</b> Nhấp vào nút 'Thêm' (hoặc biểu tượng tương tự) trong phần quản lý tương ứng. Một cửa sổ (dialog) sẽ hiện ra yêu cầu nhập thông tin cần thiết.</li>
-                    <li><b>Sửa dữ liệu:</b> Chọn một dòng trong bảng dữ liệu bạn muốn chỉnh sửa, sau đó nhấp vào nút 'Sửa'. Cửa sổ chỉnh sửa sẽ hiện ra với thông tin hiện tại đã được điền sẵn.</li>
-                    <li><b>Xóa dữ liệu:</b> Chọn một dòng trong bảng và nhấp nút 'Xóa'. Hệ thống thường sẽ yêu cầu xác nhận trước khi xóa vĩnh viễn. Lưu ý: Một số mục không thể xóa nếu đang có liên kết dữ liệu (ví dụ: không thể xóa giáo viên đang được phân công dạy).</li>
-                    <li><b>Lọc/Tải dữ liệu:</b> Sử dụng các bộ lọc (như chọn ngày, chọn trạng thái) và nhấp vào các nút như 'Tải lịch trình', 'Lọc', 'Tìm kiếm' để giới hạn phạm vi dữ liệu hiển thị.</li>
+                    <li><b>Thêm dữ liệu:</b> Nhấp vào nút 'Thêm' (hoặc biểu tượng tương tự) trong phần quản lý tương ứng. Một cửa sổ (dialog) thân thiện sẽ xuất hiện, hướng dẫn bạn nhập các thông tin cần thiết.</li>
+                    <li><b>Sửa dữ liệu:</b> Chọn một dòng (bản ghi) trong bảng dữ liệu bạn muốn chỉnh sửa, sau đó nhấp vào nút 'Sửa'. Cửa sổ chỉnh sửa sẽ hiển thị với thông tin hiện tại đã được điền sẵn, giúp bạn dễ dàng cập nhật.</li>
+                    <li><b>Xóa dữ liệu:</b> Chọn một dòng trong bảng và nhấp nút 'Xóa'. Để đảm bảo an toàn dữ liệu, hệ thống thường sẽ yêu cầu xác nhận trước khi thực hiện xóa vĩnh viễn. Lưu ý: Một số mục không thể xóa nếu đang có liên kết dữ liệu quan trọng (ví dụ: không thể xóa giáo viên đang được phân công dạy lớp).</li>
+                    <li><b>Lọc/Tải dữ liệu:</b> Sử dụng các bộ lọc thông minh (như chọn ngày, chọn trạng thái, tìm kiếm theo từ khóa) và nhấp vào các nút như 'Tải lịch trình', 'Lọc', 'Tìm kiếm' để giới hạn và hiển thị chính xác phạm vi dữ liệu bạn cần xem.</li>
                 </ul>
             </section>
 
             <section id="other-features">
                 <h2>Tính năng khác</h2>
                 <ul>
-                    <li><b>Xuất dữ liệu:</b> Quản trị viên và Giáo viên có thể xuất các bảng dữ liệu quan trọng (lịch trình, danh sách lớp, học viên...) sang định dạng Excel thông qua menu <b>Xuất file > Xuất ra Excel...</b>.</li>
-                    <li><b>Thay đổi giao diện:</b> Tùy chỉnh màu sắc và chủ đề giao diện của ứng dụng thông qua menu <b>Xem > Giao diện</b> để phù hợp với sở thích cá nhân.</li>
-                    <li><b>Đăng xuất:</b> Luôn sử dụng tùy chọn <b>Chính > Đăng xuất</b> để kết thúc phiên làm việc một cách an toàn, bảo vệ tài khoản của bạn.</li>
-                    <li><b>Thoát ứng dụng:</b> Sử dụng <b>Chính > Thoát</b> hoặc nút đóng cửa sổ [X] để đóng hoàn toàn ứng dụng. Sẽ có hộp thoại xác nhận để tránh thoát nhầm.</li>
+                    <li><b>Xuất dữ liệu:</b> Quản trị viên và Giáo viên có thể dễ dàng xuất các bảng dữ liệu quan trọng (lịch trình, danh sách lớp, học viên...) sang định dạng Excel phổ biến thông qua menu <b>Xuất file > Xuất ra Excel...</b> để lưu trữ hoặc phân tích thêm.</li>
+                    <li><b>Thay đổi giao diện:</b> Cá nhân hóa trải nghiệm của bạn bằng cách tùy chỉnh màu sắc và chủ đề giao diện của ứng dụng thông qua menu <b>Xem > Giao diện</b> để phù hợp với sở thích cá nhân.</li>
+                    <li><b>Đăng xuất:</b> Luôn sử dụng tùy chọn <b>Chính > Đăng xuất</b> để kết thúc phiên làm việc một cách an toàn, bảo vệ tài khoản và dữ liệu cá nhân của bạn khỏi truy cập trái phép.</li>
+                    <li><b>Thoát ứng dụng:</b> Sử dụng tùy chọn <b>Chính > Thoát</b> hoặc nút đóng cửa sổ [X] để đóng hoàn toàn ứng dụng. Hệ thống sẽ hiển thị hộp thoại xác nhận để tránh việc thoát ứng dụng ngoài ý muốn.</li>
                 </ul>
             </section>
 
             <section id="troubleshooting">
                 <h2>Gỡ rối & Liên hệ</h2>
                 <p>
-                    Nếu bạn gặp phải vấn đề kỹ thuật hoặc có câu hỏi chưa được giải đáp trong tài liệu này:
+                    Nếu bạn gặp phải vấn đề kỹ thuật, lỗi không mong muốn hoặc có câu hỏi chưa được giải đáp trong tài liệu hướng dẫn này:
                 </p>
                 <ul>
-                    <li>Hãy đảm bảo rằng bạn đã nhập dữ liệu một cách chính xác, đặc biệt là các trường thông tin bắt buộc (thường được đánh dấu *).</li>
-                    <li>Kiểm tra thanh trạng thái ở phía dưới cùng của cửa sổ ứng dụng để xem có thông báo lỗi hoặc cảnh báo nào không.</li>
-                    <li>Khởi động lại ứng dụng có thể giải quyết các sự cố tạm thời.</li>
-                    <li>Liên hệ với quản trị viên hệ thống được chỉ định: <strong>zakhanh</strong></li>
-                    <li>Tham khảo <a href="https://github.com/Zakhanhrog/EduManagerZK/issues" target="_blank" rel="noopener noreferrer">Kênh báo lỗi trên GitHub</a> để báo cáo lỗi hoặc xem các vấn đề đã biết.</li>
+                    <li>Hãy kiểm tra lại và đảm bảo rằng bạn đã nhập dữ liệu một cách chính xác, đầy đủ, đặc biệt là các trường thông tin bắt buộc (thường được đánh dấu * hoặc có chỉ dẫn cụ thể).</li>
+                    <li>Quan sát thanh trạng thái ở phía dưới cùng của cửa sổ ứng dụng để xem có bất kỳ thông báo lỗi hoặc cảnh báo nào được hiển thị hay không.</li>
+                    <li>Thử khởi động lại ứng dụng. Đôi khi, việc này có thể giải quyết các sự cố tạm thời hoặc xung đột nhỏ.</li>
+                    <li>Liên hệ trực tiếp với quản trị viên hệ thống được chỉ định để nhận hỗ trợ nhanh chóng: <strong>zakhanh</strong></li>
+                    <li>Tham khảo <a href="https://github.com/Zakhanhrog/EduManagerZK/issues" target="_blank" rel="noopener noreferrer">Kênh báo lỗi trên GitHub</a> để báo cáo lỗi mới hoặc kiểm tra xem vấn đề của bạn đã được người khác báo cáo và có giải pháp hay chưa.</li>
                 </ul>
             </section>
 
@@ -551,7 +713,7 @@
             <div class="footer-container">
                 <div class="footer-section about">
                     <h4>Về EduZakhanh</h4>
-                    <p>EduZakhanh là một giải pháp quản lý giáo dục toàn diện, được phát triển nhằm mục đích tối ưu hóa quy trình hành chính, nâng cao hiệu quả giảng dạy và học tập, đồng thời cải thiện sự tương tác trong cộng đồng giáo dục.</p>
+                    <p>EduZakhanh là giải pháp quản lý giáo dục thế hệ mới, được thiết kế tỉ mỉ nhằm tối ưu hóa quy trình vận hành, nâng cao trải nghiệm giảng dạy và học tập, đồng thời thúc đẩy sự tương tác hiệu quả trong cộng đồng giáo dục.</p>
                 </div>
                 <div class="footer-section quick-links">
                     <h4>Điều hướng nhanh</h4>
@@ -560,6 +722,7 @@
                         <li><a href="#features">Tổng quan Tính năng</a></li>
                         <li><a href="#roles">Vai trò Người dùng</a></li>
                         <li><a href="#common-actions">Hành động Phổ biến</a></li>
+                        <li><a href="#other-features">Tính năng Khác</a></li>
                         <li><a href="#troubleshooting">Hỗ trợ & Liên hệ</a></li>
                     </ul>
                 </div>
@@ -567,66 +730,146 @@
                     <h4>Thông tin liên hệ</h4>
                     <p class="contact-admin">Quản trị viên hệ thống: <strong>zakhanh</strong></p>
                     <p>Email hỗ trợ: <a href="mailto:18khanh.2003@gmail.com">18khanh.2003@gmail.com</a></p>
-                    <p>Địa chỉ: SN26, Khu phố Thịnh Cầu, Phường Phương Mao, TX. Quế Võ, T. Bắc Ninh</p>
-                    <p>Xem mã nguồn & báo lỗi tại: <a href="https://github.com/Zakhanhrog/EduManagerZK" target="_blank" rel="noopener noreferrer">GitHub Repository</a></p>
+                    <p>Địa chỉ: SN26, Khu phố Thịnh Cầu, P. Phương Mao, TX. Quế Võ, T. Bắc Ninh</p>
+                    <p>Mã nguồn & Báo lỗi: <a href="https://github.com/Zakhanhrog/EduManagerZK" target="_blank" rel="noopener noreferrer">GitHub Repository</a></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2024 EduZakhanh. Thiết kế và phát triển bởi Zakhanh. Bảo lưu mọi quyền.</p>
+                <p>© 2024 EduZakhanh. Thiết kế và phát triển bởi <strong>Zakhanh</strong>. Bảo lưu mọi quyền.</p>
             </div>
         </footer>
     </div>
 </div>
-<!-- Optional: Add JS for active sidebar link highlighting on scroll -->
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const sections = document.querySelectorAll('main section[id]');
         const navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+        const sidebar = document.querySelector('.sidebar');
 
         const activateLink = (id) => {
+            let activeFound = false;
             navLinks.forEach(link => {
                 link.classList.remove('active');
-                // Check both direct href and href within nested lists
-                if (link.getAttribute('href') === `#${id}` || link.closest('li')?.querySelector(`a[href="#${id}"]`)) {
-                    // Check if it's a parent link of a nested structure
+                // Check if this link directly matches the ID
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.classList.add('active');
+                    activeFound = true;
+                    // Also activate the parent link if this is a nested link
                     const parentLi = link.closest('ul')?.closest('li');
-                    if(parentLi && parentLi.querySelector('ul a') === link) {
-                        // It's a nested link, activate it
-                        link.classList.add('active');
-                        // Also activate its parent if needed
+                    if (parentLi) {
                         const parentLink = parentLi.querySelector('a[href^="#"]');
-                        if(parentLink) parentLink.classList.add('active');
-                    } else {
-                        // It's a top-level link or the main link in a nested group
-                        link.classList.add('active');
+                        if(parentLink && parentLink !== link) { // Ensure it's not the link itself
+                            // Optionally add a class to parent instead of full 'active' style
+                            // parentLink.classList.add('parent-active');
+                        }
                     }
                 }
             });
+
+            // If direct match not found (e.g. scrolling slightly past), activate the closest preceding one
+            if (!activeFound && sections.length > 0) {
+                let lastVisibleSectionId = sections[0].id; // Default to first
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    // Find the last section whose top is above the middle of the viewport
+                    if (rect.top < window.innerHeight / 2) {
+                        lastVisibleSectionId = section.id;
+                    }
+                });
+                // Retry activation with the determined ID
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === `#${lastVisibleSectionId}`) {
+                        link.classList.add('active');
+                        const parentLi = link.closest('ul')?.closest('li');
+                        if (parentLi) {
+                            const parentLink = parentLi.querySelector('a[href^="#"]');
+                            if(parentLink && parentLink !== link) {
+                                // parentLink.classList.add('parent-active');
+                            }
+                        }
+                    }
+                });
+            }
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting && entry.intersectionRatio >= 0.5) { // Activate when 50% visible
+                // Option 1: Activate when element starts entering the top 40% of the viewport
+                if (entry.isIntersecting) {
                     activateLink(entry.target.id);
                 }
+
+                // Option 2: More precise - activate when element is most prominent near top
+                // let currentVisibleId = null;
+                // let maxRatio = 0;
+                // entries.forEach(e => {
+                //     if (e.intersectionRatio > maxRatio && e.boundingClientRect.top < window.innerHeight / 2) {
+                //         maxRatio = e.intersectionRatio;
+                //         currentVisibleId = e.target.id;
+                //     }
+                // });
+                // if (currentVisibleId) {
+                //     activateLink(currentVisibleId);
+                // }
             });
         }, {
-            rootMargin: '0px 0px -40% 0px', // Trigger activation higher up the screen
-            threshold: 0.5 // Trigger when 50% of the element is visible
+            // rootMargin: '-20% 0px -60% 0px', // Trigger when element enters top 20% to 40% of viewport
+            threshold: 0.1 // Trigger even when a small part is visible
+            // threshold: [0, 0.25, 0.5, 0.75, 1] // More granular thresholds
         });
 
         sections.forEach(section => {
             observer.observe(section);
         });
 
-        // Initial activation on load for the top section or hash
-        if (window.location.hash) {
-            activateLink(window.location.hash.substring(1));
-        } else if (sections.length > 0){
-            // Activate the first section if no hash
-            activateLink(sections[0].id);
-        }
+        // Initial activation on load
+        const activateInitial = () => {
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                const targetElement = document.getElementById(targetId);
+                if(targetElement) {
+                    activateLink(targetId);
+                    // Optional: smooth scroll to hash target after styles applied
+                    // setTimeout(() => {
+                    //     targetElement.scrollIntoView({ behavior: 'smooth' });
+                    // }, 100); // Small delay
+                } else if (sections.length > 0){
+                    activateLink(sections[0].id); // Fallback to first section
+                }
+            } else if (sections.length > 0){
+                activateLink(sections[0].id); // Activate the first section if no hash
+            }
+        };
+
+        activateInitial();
+
+        // Re-evaluate active link on scroll end (debounced) for accuracy
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                let mostVisibleSectionId = sections[0].id; // Default to first
+                let minDistanceFromTop = window.innerHeight;
+
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    const distance = Math.abs(rect.top); // Distance from viewport top
+
+                    // Consider sections that are within the viewport or just above it
+                    if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                        if (distance < minDistanceFromTop) {
+                            minDistanceFromTop = distance;
+                            mostVisibleSectionId = section.id;
+                        }
+                    }
+                });
+                activateLink(mostVisibleSectionId);
+            }, 150); // Adjust debounce delay as needed
+        }, { passive: true }); // Improve scroll performance
+
     });
 </script>
+
 </body>
 </html>
