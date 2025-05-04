@@ -5,587 +5,281 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduZakhanh - Trợ giúp & Thông tin</title>
     <style>
+        /* --- Theme Variables (Dark - Default) --- */
+        :root {
+            --bg-main: #2d2d2d;
+            --bg-sidebar: #3a3a3a;
+            --bg-header-footer: #1e1e1e;
+            --bg-table-header: #444444;
+            --bg-button: #555555;
+            --bg-button-hover: #666666;
+            --bg-active: #007aff;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --text-on-active: #ffffff;
+            --border-color: #4a4a4a;
+            --accent-blue: #007aff;
+            --accent-red: #ff3b30;
+            --accent-orange: #ff9500;
+            --accent-green: #34c759;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --scrollbar-track: var(--bg-sidebar);
+            --scrollbar-thumb: var(--bg-button);
+            --scrollbar-thumb-hover: var(--bg-button-hover);
+            --scrollbar-border: var(--bg-sidebar);
+            --theme-toggle-bg: var(--bg-button);
+            --theme-toggle-text: var(--text-primary);
+            --theme-toggle-hover-bg: var(--bg-button-hover);
+            --body-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* --- Light Theme Variables --- */
+        html.light-theme {
+            --bg-main: #f8f9fa;
+            --bg-sidebar: #e9ecef;
+            --bg-header-footer: #dee2e6;
+            --bg-table-header: #ced4da;
+            --bg-button: #dee2e6; /* Slightly darker than footer bg */
+            --bg-button-hover: #ced4da;
+            --bg-active: #007aff;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --text-on-active: #ffffff;
+            --border-color: #ced4da;
+            --accent-blue: #007aff;
+            --accent-red: #dc3545; /* Use bootstrap red */
+            --accent-orange: #fd7e14; /* Use bootstrap orange */
+            --accent-green: #198754; /* Use bootstrap green */
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --scrollbar-track: var(--bg-sidebar);
+            --scrollbar-thumb: #adb5bd;
+            --scrollbar-thumb-hover: #6c757d;
+            --scrollbar-border: var(--bg-sidebar);
+            --theme-toggle-bg: var(--bg-button);
+            --theme-toggle-text: var(--text-primary);
+            --theme-toggle-hover-bg: var(--bg-button-hover);
+        }
+
         /* --- Reset & Base --- */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            transition: var(--theme-transition);
         }
+        .no-transition, .no-transition * { transition: none !important; }
 
         html {
-            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
-            font-size: 100%; /* Base font size */
+            scroll-behavior: smooth;
+            font-size: 100%;
+            color-scheme: light dark;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; /* Modern font stack */
-            line-height: 1.7; /* Improved readability */
-            color: #343a40; /* Slightly softer default text */
-            background-color: #fdfdff; /* Very light, almost white background */
+            font-family: var(--body-font-family);
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-main);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            font-size: 1rem; /* Equivalent to 16px if html font-size is 100% */
-            -webkit-font-smoothing: antialiased; /* Smoother fonts on Mac */
-            -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+            font-size: 1rem;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .page-wrapper {
-            display: flex;
-            flex-grow: 1;
-        }
+        .page-wrapper { display: flex; flex-grow: 1; }
 
         /* --- Sidebar Styling --- */
         .sidebar {
-            width: 280px; /* Slightly wider for more space */
-            background-color: #ffffff;
-            border-right: 1px solid #e9ecef; /* Softer border */
+            width: 260px;
+            background: var(--bg-sidebar);
             height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
-            padding: 35px 25px; /* Increased padding */
+            padding: 25px 20px;
             overflow-y: auto;
-            z-index: 1000; /* Ensure sidebar is on top */
-            box-shadow: 3px 0 15px rgba(0, 0, 0, 0.04); /* More subtle shadow */
-            transition: width 0.3s ease, transform 0.3s ease; /* Smooth transition */
-        }
-
-        /* Custom scrollbar for sidebar */
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-        .sidebar::-webkit-scrollbar-track {
-            background: #f8f9fa;
-            border-radius: 3px;
-        }
-        .sidebar::-webkit-scrollbar-thumb {
-            background-color: #ced4da;
-            border-radius: 3px;
-        }
-        .sidebar::-webkit-scrollbar-thumb:hover {
-            background-color: #adb5bd;
-        }
-
-
-        .sidebar h3 {
-            font-size: 1.35em; /* Slightly larger */
-            font-weight: 700; /* Bolder heading */
-            color: #0d6efd; /* Vibrant blue */
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f1f3f5; /* Lighter border */
-            text-align: center;
-            letter-spacing: 0.5px;
-        }
-
-        .sidebar ul {
-            list-style: none;
-        }
-
-        .sidebar li {
-            margin-bottom: 6px; /* Fine-tuned margin */
-        }
-
-        .sidebar a {
-            text-decoration: none;
-            color: #495057; /* Darker grey for better contrast */
-            display: flex; /* Use flex for potential icon alignment */
-            align-items: center;
-            padding: 12px 18px; /* Generous padding */
-            border-radius: 8px; /* More rounded corners */
-            transition: all 0.25s ease-in-out; /* Smooth transition for all properties */
-            font-size: 0.98em;
-            font-weight: 500; /* Medium weight */
-            position: relative;
-            overflow: hidden; /* For potential background effects */
-        }
-        /* Optional: Add subtle icon space */
-        /* .sidebar a::before { content: ''; display: inline-block; width: 18px; height: 18px; margin-right: 10px; vertical-align: middle; } */
-
-
-        .sidebar a:hover,
-        .sidebar a:focus {
-            background-color: #eef5ff; /* Lighter blue background */
-            color: #0a58ca; /* Darker primary blue text */
-            transform: translateX(4px); /* Subtle shift effect */
-            box-shadow: 0 2px 5px rgba(13, 110, 253, 0.1); /* Subtle blue shadow */
-        }
-        .sidebar a.active {
-            background-color: #0d6efd; /* Solid blue background for active */
-            color: #ffffff; /* White text for active */
-            font-weight: 600; /* Bolder active link */
-            box-shadow: 0 4px 10px rgba(13, 110, 253, 0.2); /* Stronger blue shadow */
-            transform: translateX(0); /* No shift for active */
-        }
-        .sidebar a.active:hover {
-            background-color: #0b5ed7; /* Slightly darker blue on hover */
-        }
-
-
-        /* Style for nested links */
-        .sidebar ul ul {
-            margin-top: 5px; /* Space before nested list */
-            margin-left: 5px; /* Slight indent for the UL itself */
-            border-left: 2px solid #e9ecef; /* Visual indicator for nesting */
-            padding-left: 15px; /* Space after the border */
-        }
-
-        .sidebar ul ul a {
-            padding-left: 20px; /* Indent nested links text */
-            font-size: 0.92em; /* Smaller font size for nested */
-            color: #6c757d; /* Lighter color for nested */
-            font-weight: 400; /* Normal weight */
-        }
-        .sidebar ul ul a:hover,
-        .sidebar ul ul a:focus {
-            background-color: #f1f3f5; /* Very light grey hover */
-            color: #343a40; /* Darker text on hover */
-            transform: translateX(3px); /* Less shift for nested */
-            box-shadow: none; /* No shadow for nested hover */
-        }
-        .sidebar ul ul a.active {
-            background-color: #eef5ff; /* Lighter blue background */
-            color: #0a58ca; /* Darker primary blue text */
-            font-weight: 500; /* Slightly bolder active nested */
-            transform: translateX(0);
+            z-index: 1000;
             box-shadow: none;
+            border-right: 1px solid var(--border-color);
+            transition: width 0.3s ease, transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
         }
-        /* Highlight parent when child is active */
-        .sidebar li:has(ul a.active) > a {
-            background-color: #eef5ff;
-            color: #0a58ca;
-            font-weight: 500;
-        }
-
+        .sidebar::-webkit-scrollbar { width: 8px; }
+        .sidebar::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+        .sidebar::-webkit-scrollbar-thumb { background-color: var(--scrollbar-thumb); border-radius: 4px; border: 2px solid var(--scrollbar-border); }
+        .sidebar::-webkit-scrollbar-thumb:hover { background-color: var(--scrollbar-thumb-hover); }
+        .sidebar h3 { font-size: 1.15em; font-weight: 600; color: var(--text-primary); margin-bottom: 25px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); text-align: left; text-shadow: none; background: none; -webkit-text-fill-color: initial; }
+        .sidebar ul { list-style: none; }
+        .sidebar li { margin-bottom: 4px; }
+        .sidebar a { text-decoration: none; color: var(--text-secondary); display: flex; align-items: center; padding: 9px 12px; border-radius: 6px; font-size: 0.95em; font-weight: 500; position: relative; overflow: hidden; border: 1px solid transparent; }
+        .sidebar a:hover, .sidebar a:focus { background-color: var(--bg-button); color: var(--text-primary); transform: none; box-shadow: none; outline: none; }
+        .sidebar a.active { background: var(--bg-active); color: var(--text-on-active) !important; font-weight: 600; box-shadow: none; transform: none; text-shadow: none; }
+        .sidebar a.active:hover { filter: brightness(90%); background: var(--bg-active); color: var(--text-on-active); }
+        .sidebar ul ul { margin-top: 4px; margin-left: 10px; border-left: 1px solid var(--border-color); padding-left: 15px; border-image: none; }
+        .sidebar ul ul a { padding-left: 10px; font-size: 0.9em; color: var(--text-secondary); font-weight: 400; }
+        .sidebar ul ul a:hover, .sidebar ul ul a:focus { background-color: var(--bg-button); color: var(--text-primary); }
+        .sidebar ul ul a.active { background: none; color: var(--bg-active); font-weight: 500; box-shadow: none; }
+        html.light-theme .sidebar ul ul a.active { color: var(--bg-active); }
+        .sidebar li:has(ul a.active) > a { color: var(--text-primary); }
 
         /* --- Content Area Styling --- */
-        .content-area {
-            flex-grow: 1;
-            margin-left: 280px; /* Match sidebar width */
-            display: flex;
-            flex-direction: column;
-            transition: margin-left 0.3s ease; /* Smooth transition if sidebar width changes */
-        }
-
-        .main-content {
-            flex-grow: 1;
-            padding: 50px 60px; /* Increased padding */
-            background-color: #ffffff;
-            border-radius: 12px; /* More rounded corners */
-            margin: 25px; /* Add margin around the content */
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.07); /* More prominent, softer shadow */
-        }
+        .content-area { flex-grow: 1; margin-left: 260px; display: flex; flex-direction: column; background-color: var(--bg-main); min-height: 100vh; transition: margin-left 0.3s ease, background-color 0.3s ease; }
+        .main-content { flex-grow: 1; padding: 30px 40px; background-color: var(--bg-main); border-radius: 0; margin: 0; box-shadow: none; }
 
         /* --- Heading Styles --- */
-        .main-content h1 {
-            font-size: 2.6em; /* Larger H1 */
-            font-weight: 700;
-            color: #212529; /* Darker, near black */
-            text-align: center;
-            margin-bottom: 60px; /* More space below H1 */
-            position: relative;
-            padding-bottom: 20px;
-            letter-spacing: -0.5px;
-        }
-        .main-content h1::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90px; /* Wider underline */
-            height: 5px; /* Thicker underline */
-            background: linear-gradient(90deg, #0d6efd, #6f42c1); /* Gradient underline */
-            border-radius: 3px;
-        }
-
-        .main-content h2 {
-            font-size: 2em; /* Larger H2 */
-            font-weight: 600;
-            color: #0d6efd; /* Primary blue */
-            margin-top: 55px; /* Increased spacing */
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #dee2e6; /* Lighter, thinner border */
-            position: relative;
-            display: flex; /* For potential icon */
-            align-items: center;
-            gap: 10px;
-        }
-        /* Optional: Add icon before H2 */
-        /* .main-content h2::before { content: '❖'; color: #6f42c1; font-size: 0.9em; } */
-
-        .main-content h2:first-of-type {
-            margin-top: 0;
-        }
-
-        .main-content h3 {
-            font-size: 1.5em; /* Larger H3 */
-            font-weight: 600;
-            color: #6f42c1; /* Purple accent color */
-            margin-top: 35px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-left: 15px; /* Space for pseudo element */
-        }
-        /* Add a small vertical bar before H3 */
-        .main-content h3::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 70%;
-            background-color: #6f42c1;
-            border-radius: 2px;
-        }
-
+        .main-content h1 { font-size: 1.8em; font-weight: 600; color: var(--text-primary); text-align: left; margin-bottom: 30px; position: relative; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); letter-spacing: normal; text-shadow: none; }
+        .main-content h1::after { content: none; }
+        .main-content h2 { font-size: 1.4em; font-weight: 600; color: var(--accent-blue); margin-top: 35px; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color); position: relative; display: flex; align-items: center; gap: 8px; text-shadow: none; }
+        .main-content h2::before { content: none; }
+        .main-content h2:first-of-type { margin-top: 0; }
+        .main-content h3 { font-size: 1.15em; font-weight: 600; color: var(--text-primary); margin-top: 25px; margin-bottom: 12px; position: relative; padding-left: 0; text-shadow: none; }
+        .main-content h3::before { content: none; }
 
         /* --- Text and List Styles --- */
-        .main-content p {
-            margin-bottom: 20px; /* Increased paragraph spacing */
-            color: #495057; /* Consistent readable grey */
-            line-height: 1.8; /* Generous line height */
-        }
-
-        .main-content ul {
-            margin-left: 25px; /* Standard indentation */
-            margin-bottom: 20px;
-            list-style-type: none; /* Remove default bullets */
-            padding-left: 0;
-        }
-        .main-content ul li {
-            margin-bottom: 12px;
-            padding-left: 25px; /* Space for custom bullet */
-            position: relative;
-        }
-        /* Custom bullets */
-        .main-content ul li::before {
-            content: '•'; /* Or use an SVG icon */
-            color: #0d6efd; /* Primary blue bullet */
-            font-weight: bold;
-            display: inline-block;
-            position: absolute;
-            left: 0;
-            top: 1px; /* Fine-tune vertical alignment */
-            font-size: 1.2em;
-        }
-
-        /* Different bullets for nested lists */
-        .main-content ul ul {
-            margin-top: 10px;
-            margin-left: 30px; /* Further indent nested lists */
-        }
-        .main-content ul ul li::before {
-            content: '◦'; /* Open circle */
-            color: #6f42c1; /* Accent color */
-            font-size: 1em;
-            top: 2px;
-        }
-
-
-        .main-content hr {
-            display: none; /* Keep HR hidden */
-        }
+        .main-content p, .main-content ul li { color: var(--text-primary); }
+        .main-content p { margin-bottom: 15px; line-height: 1.6; }
+        .main-content ul { margin-left: 20px; margin-bottom: 15px; list-style-type: disc; padding-left: 15px; color: var(--text-primary); }
+        .main-content ul li { margin-bottom: 8px; padding-left: 5px; position: relative; }
+        .main-content ul li::before { content: none; }
+        .main-content ul ul { margin-top: 8px; margin-left: 20px; list-style-type: circle; }
 
         /* --- Link Styles in Content --- */
-        .main-content a {
-            color: #0d6efd; /* Vibrant blue */
-            text-decoration: none;
-            font-weight: 600; /* Stand out */
-            transition: all 0.2s ease;
-            position: relative;
-            /* Subtle underline effect */
-            background-image: linear-gradient(to right, rgba(13, 110, 253, 0.8), rgba(111, 66, 193, 0.8));
-            background-size: 0% 2px;
-            background-repeat: no-repeat;
-            background-position: left bottom;
-            padding-bottom: 2px; /* Space for underline */
-        }
-
-        .main-content a:hover,
-        .main-content a:focus {
-            color: #0a58ca; /* Darker blue */
-            background-size: 100% 2px; /* Animate underline */
-            outline: none; /* Remove focus outline if using other indicators */
-        }
+        .main-content a { color: var(--accent-blue); text-decoration: none; font-weight: 500; position: relative; background-image: none; padding-bottom: 1px; border-bottom: 1px solid transparent; }
+        .main-content a:hover, .main-content a:focus { filter: brightness(1.2); border-bottom: 1px solid var(--accent-blue); color: var(--accent-blue); outline: none; }
 
         /* --- Emphasis Styles --- */
-        .main-content b,
-        .main-content strong {
-            color: #000; /* Near black for strong emphasis */
-            font-weight: 600;
-        }
+        .main-content b, .main-content strong { color: var(--text-primary); font-weight: 600; }
+
+        /* --- Styled Action Keywords (Using Classes) --- */
+        .action-add, .action-edit, .action-delete { display: inline-block; padding: 3px 8px; border-radius: 5px; font-weight: 500; text-shadow: none !important; border: none; color: var(--text-on-active) !important; margin: 0 2px; vertical-align: baseline; font-size: 0.9em; line-height: 1.4; cursor: default; transition: filter 0.15s ease; }
+        .action-add { background-color: var(--accent-blue); }
+        .action-edit { background-color: var(--accent-orange); }
+        .action-delete { background-color: var(--accent-red); }
+        .action-add:hover, .action-edit:hover, .action-delete:hover { filter: brightness(115%); transform: none; box-shadow: none; }
 
         /* --- Footer Styling --- */
-        .site-footer {
-            background-color: #212529; /* Dark background */
-            color: #adb5bd; /* Light grey text */
-            padding: 70px 0 30px 0; /* Increased padding */
-            border-top: 6px solid #0d6efd; /* Thicker primary blue top border */
-            font-size: 0.95em;
-            margin-top: auto; /* Push footer to bottom */
-            clip-path: polygon(0 10px, 100% 0, 100% 100%, 0% 100%); /* Subtle slanted top */
-            position: relative; /* Needed for clip-path */
-        }
-
+        .site-footer { background-color: var(--bg-header-footer); color: var(--text-secondary); padding: 10px 0; /* Slightly less padding */ border-top: 1px solid var(--border-color); font-size: 0.85em; margin-top: auto; position: relative; box-shadow: none; width: 100%; }
         .footer-container {
-            max-width: 1320px; /* Wider container */
+            max-width: 100%;
             margin: 0 auto;
-            padding: 0 50px; /* Increased padding */
-            display: grid; /* Use grid for layout */
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
-            gap: 50px; /* Generous gap */
+            padding: 0 40px; /* Keep original padding */
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Vertically align items */
+            flex-wrap: wrap; /* Allow wrapping */
+            gap: 10px 20px; /* Keep gap */
         }
 
-        .footer-section h4 {
-            font-size: 1.3em;
-            font-weight: 700; /* Bolder footer heading */
-            color: #ffffff; /* White heading */
-            margin-bottom: 30px;
-            position: relative;
-            padding-bottom: 15px;
-            letter-spacing: 0.5px;
+        .footer-section {
+            /* flex-grow: 1; */ /* Remove grow from base */
+            flex-basis: auto; /* Let content determine base width */
+            flex-shrink: 0; /* Prevent shrinking initially */
+            line-height: 1.5; /* Ensure consistent line height */
         }
-        .footer-section h4::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(90deg, #0d6efd, #6f42c1); /* Gradient accent */
-            border-radius: 2px;
+        .footer-section.copyright {
+            flex-grow: 1; /* Allow copyright to take up space */
+            text-align: left; /* Ensure left align */
+        }
+        .footer-section.contact {
+            /* flex-grow: 0; Keep default */
+            text-align: right;
+            display: flex; /* Use flex to align items inside */
+            align-items: center; /* Align items vertically */
+            justify-content: flex-end; /* Align items to the right */
+            gap: 8px; /* Space between contact items and version */
+            flex-wrap: nowrap; /* Prevent wrapping inside contact */
+        }
+        /* Separate p for contact links and version */
+        .footer-section.contact .contact-links { margin: 0; }
+        .footer-section.contact .version-info { margin: 0; white-space: nowrap; }
+
+        .footer-section.theme-switcher {
+            /* flex-grow: 0; Keep default */
+            margin-left: 15px; /* Add space between contact and button */
         }
 
-        .footer-section p {
-            margin-bottom: 15px;
-            line-height: 1.8;
-            color: #ced4da; /* Lighter grey for text */
-        }
+        .footer-section h4, .footer-section ul { display: none; }
+        .footer-section p { margin-bottom: 0; color: var(--text-secondary); } /* Applied to all p */
+        .footer-section a { color: var(--text-primary); text-decoration: none; font-weight: 500; border: none; padding-bottom: 0; }
+        .footer-section a:hover { color: var(--accent-blue); text-decoration: underline; transform: none; text-shadow: none; border: none; }
+        .footer-section a::before { content: none; }
+        .footer-section strong { color: var(--text-primary); font-weight: 600; }
+        .footer-section i b { font-style: normal; /* Remove italic */ font-weight: bold; color: var(--text-secondary); }
+        html.light-theme .footer-section i b { color: var(--text-secondary); }
 
-        .footer-section ul {
-            list-style: none;
-            padding-left: 0;
-            margin-left: 0;
-        }
-
-        .footer-section li {
-            margin-bottom: 14px;
-        }
-
-        .footer-section a {
-            color: #e9ecef; /* Lighter grey for links */
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 400; /* Normal weight */
-            position: relative;
-            padding-bottom: 3px;
-            display: inline-block; /* Needed for transform */
-        }
-
-        .footer-section a:hover,
-        .footer-section a:focus {
-            color: #ffffff; /* White on hover */
-            text-decoration: none;
-            transform: translateX(5px); /* Subtle move effect */
-            outline: none;
-        }
-
-        .footer-section .contact-admin strong {
-            color: #ffffff; /* White for admin name */
-            font-weight: 600;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 60px; /* More space above */
-            padding-top: 30px;
-            border-top: 1px solid #495057; /* Slightly darker border */
+        /* Theme Toggle Button - Refined */
+        #theme-toggle {
+            background-color: var(--theme-toggle-bg);
+            color: var(--theme-toggle-text);
+            border: 1px solid var(--border-color);
+            padding: 4px 10px; /* Adjusted padding */
+            border-radius: 8px; /* More rounded corners */
+            cursor: pointer;
             font-size: 0.9em;
-            color: #adb5bd; /* Light grey */
+            font-family: inherit;
+            display: flex; /* Use flex for icon + text */
+            align-items: center;
+            gap: 6px; /* Space between icon and text */
+            white-space: nowrap; /* Prevent text wrapping */
         }
-        .footer-bottom p {
-            color: #adb5bd; /* Ensure paragraph inherits color */
-            margin: 0;
-        }
+        #theme-toggle:hover { background-color: var(--theme-toggle-hover-bg); border-color: var(--accent-blue); }
 
         /* --- Responsive Design --- */
-        @media (max-width: 1200px) {
+        @media (max-width: 900px) { /* Adjust breakpoint for better wrapping */
             .footer-container {
-                max-width: 1140px;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .sidebar {
-                width: 260px;
-            }
-            .content-area {
-                margin-left: 260px;
-            }
-            .main-content {
-                padding: 40px 45px;
-                margin: 20px;
-            }
-            .main-content h1 {
-                font-size: 2.3em;
-                margin-bottom: 50px;
-            }
-            .main-content h2 {
-                font-size: 1.8em;
-                margin-top: 45px;
-            }
-            .main-content h3 {
-                font-size: 1.4em;
-                margin-top: 30px;
-            }
-            .footer-container {
-                max-width: 960px;
-                padding: 0 40px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            body { font-size: 0.95rem; } /* Slightly smaller base font */
-
-            .page-wrapper {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: static; /* Change position */
-                border-right: none;
-                border-bottom: 1px solid #dee2e6;
-                z-index: 500;
-                box-shadow: none; /* Remove shadow on mobile */
-                padding: 20px 25px; /* Adjust padding */
-                overflow-y: visible; /* Disable scroll */
-            }
-            .sidebar h3 {
-                text-align: left; /* Align left on mobile */
-                margin-bottom: 20px;
-                font-size: 1.25em;
-            }
-            .sidebar ul ul {
-                border-left: none;
-                padding-left: 10px;
-            }
-
-            .content-area {
-                margin-left: 0; /* Remove margin */
-            }
-            .main-content {
-                padding: 30px 25px; /* Adjust padding */
-                margin: 15px; /* Adjust margin */
-                border-radius: 10px;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06); /* Lighter shadow */
-            }
-            .main-content h1 {
-                font-size: 2em;
-                margin-bottom: 40px;
-                padding-bottom: 15px;
-            }
-            .main-content h1::after { /* Adjust underline */
-                width: 70px;
-                height: 4px;
-            }
-            .main-content h2 {
-                font-size: 1.6em;
-                margin-top: 40px;
-            }
-            .main-content h3 {
-                font-size: 1.3em;
-                margin-top: 30px;
-                padding-left: 12px;
-            }
-            .main-content h3::before {
-                width: 3px;
-            }
-            .main-content ul { margin-left: 15px; }
-            .main-content ul li { padding-left: 20px; }
-            .main-content ul ul { margin-left: 20px; }
-
-            /* Footer Responsive Adjustments */
-            .site-footer {
-                padding: 50px 0 25px 0;
-                clip-path: none; /* Remove slant on mobile */
-            }
-            .footer-container {
-                grid-template-columns: 1fr; /* Stack sections */
-                padding: 0 30px;
-                gap: 35px;
-                max-width: 100%;
+                justify-content: center; /* Center items when they might wrap */
+                text-align: center;
+                gap: 15px; /* Increase gap when wrapping */
             }
             .footer-section {
-                min-width: auto;
-                margin-bottom: 10px;
+                flex-basis: 100%; /* Stack sections */
+                text-align: center !important; /* Center all text */
+                flex-grow: 0 !important; /* Prevent growing */
             }
-            .footer-section h4 {
-                margin-bottom: 20px;
-                font-size: 1.25em;
+            .footer-section.contact {
+                justify-content: center; /* Center contact items */
+                flex-wrap: wrap; /* Allow contact items to wrap */
             }
-            .footer-bottom {
-                margin-top: 40px;
-                padding-top: 25px;
-                font-size: 0.88em; /* Smaller text in footer bottom */
+            .footer-section.theme-switcher {
+                margin-left: 0; /* Remove left margin */
+                display: flex; /* Center button */
+                justify-content: center;
             }
+            .site-footer { padding: 15px 0; }
         }
+
+        @media (max-width: 768px) { /* Original mobile breakpoint */
+            body { font-size: 0.95rem; }
+            .page-wrapper { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border-color); padding: 15px 20px; overflow-y: visible; box-shadow: 0 2px 5px var(--shadow-color); }
+            .sidebar h3 { margin-bottom: 15px; font-size: 1.1em; }
+            .sidebar ul ul { border-left: 1px solid var(--border-color); padding-left: 12px; margin-left: 5px; }
+            .content-area { margin-left: 0; min-height: auto; }
+            .main-content { padding: 20px 25px; }
+            .main-content h1 { font-size: 1.6em; margin-bottom: 25px; padding-bottom: 10px;}
+            .main-content h2 { font-size: 1.3em; margin-top: 30px; }
+            .main-content h3 { font-size: 1.1em; margin-top: 20px; }
+            .main-content ul { margin-left: 15px; padding-left: 10px; }
+            /* Footer mobile is handled by max-width: 900px */
+            .footer-container { padding: 0 25px; }
+            .site-footer { font-size: 0.8em; }
+        }
+
 
         /* --- Animations & Effects --- */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Apply fade in to sections, staggered */
-        .main-content section {
-            animation: fadeIn 0.6s ease-out forwards;
-            opacity: 0; /* Start hidden */
-        }
-        .main-content section:nth-child(1) { animation-delay: 0.1s; }
-        .main-content section:nth-child(2) { animation-delay: 0.2s; }
-        .main-content section:nth-child(3) { animation-delay: 0.3s; }
-        .main-content section:nth-child(4) { animation-delay: 0.4s; }
-        .main-content section:nth-child(5) { animation-delay: 0.5s; }
-        .main-content section:nth-child(6) { animation-delay: 0.6s; }
-        .main-content section:nth-child(7) { animation-delay: 0.7s; }
-
-
-        /* Style specific common action keywords */
-        .main-content b[style*="color:#28a745;"] { /* Add */
-            color: #198754 !important; /* Bootstrap green */
-            background-color: rgba(25, 135, 84, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            text-shadow: none !important;
-        }
-        .main-content b[style*="color:#ffc107;"] { /* Edit */
-            color: #fd7e14 !important; /* Bootstrap orange */
-            background-color: rgba(253, 126, 20, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            text-shadow: none !important;
-        }
-        .main-content b[style*="color:#dc3545;"] { /* Delete */
-            color: #dc3545 !important; /* Bootstrap red */
-            background-color: rgba(220, 53, 69, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            text-shadow: none !important;
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        .main-content section { animation: fadeIn 0.3s ease-out forwards; opacity: 0; }
+        .main-content section:nth-child(1) { animation-delay: 0.05s; }
+        .main-content section:nth-child(2) { animation-delay: 0.1s; }
+        .main-content section:nth-child(3) { animation-delay: 0.15s; }
+        .main-content section:nth-child(4) { animation-delay: 0.2s; }
+        .main-content section:nth-child(5) { animation-delay: 0.25s; }
+        .main-content section:nth-child(6) { animation-delay: 0.3s; }
+        .main-content section:nth-child(7) { animation-delay: 0.35s; }
 
     </style>
-    <!-- Consider adding Google Fonts if 'Inter' is not widely available -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="page-wrapper">
@@ -610,7 +304,6 @@
 
     <div class="content-area">
         <main class="main-content">
-
             <section id="welcome">
                 <h1>EduZakhanh - Trợ giúp & Thông tin</h1>
                 <h2>Chào mừng</h2>
@@ -624,7 +317,7 @@
                 <ul>
                     <li>Sử dụng các <b>tab điều hướng chính</b> (ví dụ: <b>Lịch trình</b>, <b>Lớp học</b>, <b>Học viên</b>...) được bố trí rõ ràng để truy cập các phân hệ quản lý khác nhau của hệ thống.</li>
                     <li>Dữ liệu thường được trình bày trực quan dưới dạng <b>bảng biểu</b>. Bạn có thể nhấp vào <b>tiêu đề cột</b> để sắp xếp dữ liệu linh hoạt theo thứ tự tăng dần hoặc giảm dần.</li>
-                    <li>Các nút chức năng quan trọng như <b style="color:#28a745;">Thêm</b>, <b style="color:#ffc107; text-shadow: 1px 1px 1px #aaa;">Sửa</b>, và <b style="color:#dc3545;">Xóa</b> thường được đặt ở vị trí thuận tiện, gần bảng dữ liệu tương ứng để thao tác nhanh chóng.</li>
+                    <li>Các nút chức năng quan trọng như <b class="action-add">Thêm</b>, <b class="action-edit">Sửa</b>, và <b class="action-delete">Xóa</b> thường được đặt ở vị trí thuận tiện, gần bảng dữ liệu tương ứng để thao tác nhanh chóng.</li>
                     <li>Truy cập thanh <b>menu chính</b> (<b>Chính</b>, <b>Xuất file</b>, <b>Xem</b>, <b>Trợ giúp</b>) ở góc trên cùng cho các tác vụ toàn cục như đăng xuất an toàn, xuất báo cáo đa dạng, tùy chỉnh giao diện, và truy cập trang trợ giúp này.</li>
                 </ul>
             </section>
@@ -676,9 +369,9 @@
             <section id="common-actions">
                 <h2>Hành động phổ biến</h2>
                 <ul>
-                    <li><b>Thêm dữ liệu:</b> Nhấp vào nút 'Thêm' (hoặc biểu tượng tương tự) trong phần quản lý tương ứng. Một cửa sổ (dialog) thân thiện sẽ xuất hiện, hướng dẫn bạn nhập các thông tin cần thiết.</li>
-                    <li><b>Sửa dữ liệu:</b> Chọn một dòng (bản ghi) trong bảng dữ liệu bạn muốn chỉnh sửa, sau đó nhấp vào nút 'Sửa'. Cửa sổ chỉnh sửa sẽ hiển thị với thông tin hiện tại đã được điền sẵn, giúp bạn dễ dàng cập nhật.</li>
-                    <li><b>Xóa dữ liệu:</b> Chọn một dòng trong bảng và nhấp nút 'Xóa'. Để đảm bảo an toàn dữ liệu, hệ thống thường sẽ yêu cầu xác nhận trước khi thực hiện xóa vĩnh viễn. Lưu ý: Một số mục không thể xóa nếu đang có liên kết dữ liệu quan trọng (ví dụ: không thể xóa giáo viên đang được phân công dạy lớp).</li>
+                    <li><b>Thêm dữ liệu:</b> Nhấp vào nút <b class="action-add">Thêm</b> trong phần quản lý tương ứng. Một cửa sổ (dialog) thân thiện sẽ xuất hiện, hướng dẫn bạn nhập các thông tin cần thiết.</li>
+                    <li><b>Sửa dữ liệu:</b> Chọn một dòng (bản ghi) trong bảng dữ liệu bạn muốn chỉnh sửa, sau đó nhấp vào nút <b class="action-edit">Sửa</b>. Cửa sổ chỉnh sửa sẽ hiển thị với thông tin hiện tại đã được điền sẵn, giúp bạn dễ dàng cập nhật.</li>
+                    <li><b>Xóa dữ liệu:</b> Chọn một dòng trong bảng và nhấp nút <b class="action-delete">Xóa</b>. Để đảm bảo an toàn dữ liệu, hệ thống thường sẽ yêu cầu xác nhận trước khi thực hiện xóa vĩnh viễn. Lưu ý: Một số mục không thể xóa nếu đang có liên kết dữ liệu quan trọng (ví dụ: không thể xóa giáo viên đang được phân công dạy lớp).</li>
                     <li><b>Lọc/Tải dữ liệu:</b> Sử dụng các bộ lọc thông minh (như chọn ngày, chọn trạng thái, tìm kiếm theo từ khóa) và nhấp vào các nút như 'Tải lịch trình', 'Lọc', 'Tìm kiếm' để giới hạn và hiển thị chính xác phạm vi dữ liệu bạn cần xem.</li>
                 </ul>
             </section>
@@ -687,7 +380,7 @@
                 <h2>Tính năng khác</h2>
                 <ul>
                     <li><b>Xuất dữ liệu:</b> Quản trị viên và Giáo viên có thể dễ dàng xuất các bảng dữ liệu quan trọng (lịch trình, danh sách lớp, học viên...) sang định dạng Excel phổ biến thông qua menu <b>Xuất file > Xuất ra Excel...</b> để lưu trữ hoặc phân tích thêm.</li>
-                    <li><b>Thay đổi giao diện:</b> Cá nhân hóa trải nghiệm của bạn bằng cách tùy chỉnh màu sắc và chủ đề giao diện của ứng dụng thông qua menu <b>Xem > Giao diện</b> để phù hợp với sở thích cá nhân.</li>
+                    <li><b>Thay đổi giao diện:</b> Cá nhân hóa trải nghiệm của bạn bằng cách tùy chỉnh màu sắc và chủ đề giao diện của ứng dụng thông qua menu <b>Xem > Giao diện</b> để phù hợp với sở thích cá nhân. <i>(Lưu ý: Nút chuyển đổi Sáng/Tối trên trang này là riêng biệt).</i></li>
                     <li><b>Đăng xuất:</b> Luôn sử dụng tùy chọn <b>Chính > Đăng xuất</b> để kết thúc phiên làm việc một cách an toàn, bảo vệ tài khoản và dữ liệu cá nhân của bạn khỏi truy cập trái phép.</li>
                     <li><b>Thoát ứng dụng:</b> Sử dụng tùy chọn <b>Chính > Thoát</b> hoặc nút đóng cửa sổ [X] để đóng hoàn toàn ứng dụng. Hệ thống sẽ hiển thị hộp thoại xác nhận để tránh việc thoát ứng dụng ngoài ý muốn.</li>
                 </ul>
@@ -706,168 +399,173 @@
                     <li>Tham khảo <a href="https://github.com/Zakhanhrog/EduManagerZK/issues" target="_blank" rel="noopener noreferrer">Kênh báo lỗi trên GitHub</a> để báo cáo lỗi mới hoặc kiểm tra xem vấn đề của bạn đã được người khác báo cáo và có giải pháp hay chưa.</li>
                 </ul>
             </section>
-
         </main>
 
         <footer class="site-footer">
             <div class="footer-container">
-                <div class="footer-section about">
-                    <h4>Về EduZakhanh</h4>
-                    <p>EduZakhanh là giải pháp quản lý giáo dục thế hệ mới, được thiết kế tỉ mỉ nhằm tối ưu hóa quy trình vận hành, nâng cao trải nghiệm giảng dạy và học tập, đồng thời thúc đẩy sự tương tác hiệu quả trong cộng đồng giáo dục.</p>
-                </div>
-                <div class="footer-section quick-links">
-                    <h4>Điều hướng nhanh</h4>
-                    <ul>
-                        <li><a href="#welcome">Chào mừng</a></li>
-                        <li><a href="#features">Tổng quan Tính năng</a></li>
-                        <li><a href="#roles">Vai trò Người dùng</a></li>
-                        <li><a href="#common-actions">Hành động Phổ biến</a></li>
-                        <li><a href="#other-features">Tính năng Khác</a></li>
-                        <li><a href="#troubleshooting">Hỗ trợ & Liên hệ</a></li>
-                    </ul>
+                <div class="footer-section copyright">
+                    <p>© 2024 EduZakhanh. Phát triển bởi <strong>Zakhanh</strong>.</p>
                 </div>
                 <div class="footer-section contact">
-                    <h4>Thông tin liên hệ</h4>
-                    <p class="contact-admin">Quản trị viên hệ thống: <strong>zakhanh</strong></p>
-                    <p>Email hỗ trợ: <a href="mailto:18khanh.2003@gmail.com">18khanh.2003@gmail.com</a></p>
-                    <p>Địa chỉ: SN26, Khu phố Thịnh Cầu, P. Phương Mao, TX. Quế Võ, T. Bắc Ninh</p>
-                    <p>Mã nguồn & Báo lỗi: <a href="https://github.com/Zakhanhrog/EduManagerZK" target="_blank" rel="noopener noreferrer">GitHub Repository</a></p>
+                    <p class="contact-links">
+                        Liên hệ: <a href="mailto:18khanh.2003@gmail.com">18khanh.2003@gmail.com</a> | <a href="https://github.com/Zakhanhrog/EduManagerZK" target="_blank" rel="noopener noreferrer">Source GitHub</a>
+                    </p>
+                    <p class="version-info">
+                        Version: <i><b>1.1.0</b></i>
+                    </p>
+                </div>
+                <div class="footer-section theme-switcher">
+                    <button id="theme-toggle" aria-label="Chuyển đổi giao diện">
+                        <span>🌙</span><span>Chế độ Tối</span>
+                    </button>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>© 2024 EduZakhanh. Thiết kế và phát triển bởi <strong>Zakhanh</strong>. Bảo lưu mọi quyền.</p>
-            </div>
         </footer>
-    </div>
-</div>
+    </div> <!-- End content-area -->
+</div> <!-- End page-wrapper -->
 
 <script>
+    // --- Theme Switching Logic ---
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleText = themeToggle?.querySelector('span:last-child'); // Target text span
+    const themeToggleIcon = themeToggle?.querySelector('span:first-child'); // Target icon span
+    const htmlElement = document.documentElement;
+    const lightThemeClass = 'light-theme';
+    const currentThemeKey = 'eduzakhanh_help_theme_v2'; // Use a new key if needed
+
+    const applyTheme = (theme) => {
+        if (theme === 'light') {
+            htmlElement.classList.add(lightThemeClass);
+            if (themeToggleIcon) themeToggleIcon.textContent = '☀️';
+            if (themeToggleText) themeToggleText.textContent = 'Chế độ Sáng';
+        } else {
+            htmlElement.classList.remove(lightThemeClass);
+            if (themeToggleIcon) themeToggleIcon.textContent = '🌙';
+            if (themeToggleText) themeToggleText.textContent = 'Chế độ Tối';
+        }
+        // Force reflow/repaint sometimes needed for complex transitions
+        // void htmlElement.offsetWidth;
+    };
+
+    const savedTheme = localStorage.getItem(currentThemeKey);
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+    // Apply initial theme WITHOUT transition to avoid flash
+    htmlElement.classList.add('no-transition');
+    applyTheme(currentTheme);
+    // Force reflow before removing the class
+    htmlElement.offsetHeight; // Reading offsetHeight forces reflow
+    htmlElement.classList.remove('no-transition');
+
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            currentTheme = htmlElement.classList.contains(lightThemeClass) ? 'dark' : 'light';
+            applyTheme(currentTheme);
+            localStorage.setItem(currentThemeKey, currentTheme);
+        });
+    }
+
+    // --- Sidebar Active Link Highlighting (Optimized) ---
     document.addEventListener('DOMContentLoaded', () => {
-        const sections = document.querySelectorAll('main section[id]');
-        const navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
-        const sidebar = document.querySelector('.sidebar');
+        const sections = Array.from(document.querySelectorAll('main section[id]'));
+        const navLinks = Array.from(document.querySelectorAll('.sidebar a[href^="#"]'));
+        let lastActivatedByScroll = null;
+        let scrollTimeout;
 
         const activateLink = (id) => {
-            let activeFound = false;
+            if (!id) return;
+            let parentLinkActivated = false;
             navLinks.forEach(link => {
-                link.classList.remove('active');
-                // Check if this link directly matches the ID
-                if (link.getAttribute('href') === `#${id}`) {
-                    link.classList.add('active');
-                    activeFound = true;
-                    // Also activate the parent link if this is a nested link
-                    const parentLi = link.closest('ul')?.closest('li');
-                    if (parentLi) {
-                        const parentLink = parentLi.querySelector('a[href^="#"]');
-                        if(parentLink && parentLink !== link) { // Ensure it's not the link itself
-                            // Optionally add a class to parent instead of full 'active' style
-                            // parentLink.classList.add('parent-active');
-                        }
+                const linkHref = link.getAttribute('href');
+                const isActive = linkHref === `#${id}`;
+                link.classList.toggle('active', isActive);
+
+                // Handle parent activation for nested lists
+                const parentLi = link.closest('ul')?.closest('li');
+                if (parentLi) {
+                    const parentLink = parentLi.querySelector(':scope > a[href^="#"]');
+                    if (parentLink && parentLink !== link && isActive) {
+                        // parentLink.classList.add('parent-active'); // Add if specific style needed
+                        parentLinkActivated = true;
+                    } else if (parentLink && parentLink !== link && !parentLinkActivated) {
+                        // parentLink.classList.remove('parent-active');
                     }
                 }
             });
-
-            // If direct match not found (e.g. scrolling slightly past), activate the closest preceding one
-            if (!activeFound && sections.length > 0) {
-                let lastVisibleSectionId = sections[0].id; // Default to first
-                sections.forEach(section => {
-                    const rect = section.getBoundingClientRect();
-                    // Find the last section whose top is above the middle of the viewport
-                    if (rect.top < window.innerHeight / 2) {
-                        lastVisibleSectionId = section.id;
-                    }
-                });
-                // Retry activation with the determined ID
-                navLinks.forEach(link => {
-                    if (link.getAttribute('href') === `#${lastVisibleSectionId}`) {
-                        link.classList.add('active');
-                        const parentLi = link.closest('ul')?.closest('li');
-                        if (parentLi) {
-                            const parentLink = parentLi.querySelector('a[href^="#"]');
-                            if(parentLink && parentLink !== link) {
-                                // parentLink.classList.add('parent-active');
-                            }
-                        }
-                    }
-                });
-            }
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                // Option 1: Activate when element starts entering the top 40% of the viewport
-                if (entry.isIntersecting) {
-                    activateLink(entry.target.id);
+        const onScroll = () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                let bestVisibleSectionId = null;
+                let maxScore = -1;
+                const viewportHeight = window.innerHeight;
+
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    const topVisible = rect.top < viewportHeight && rect.top >= -rect.height * 0.5; // Allow top half out
+                    const bottomVisible = rect.bottom > 0 && rect.bottom <= viewportHeight + rect.height * 0.5; // Allow bottom half out
+
+                    if (topVisible || bottomVisible) {
+                        const distanceFromTop = Math.max(0, rect.top); // Distance from viewport top (0 if above)
+                        const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
+                        const visibleRatio = visibleHeight / rect.height;
+
+                        // Scoring: prioritize sections near the top, then by visibility ratio
+                        let score = 0;
+                        if (visibleRatio > 0.1) { // Must be somewhat visible
+                            score = visibleRatio * 100; // Base score on visibility
+                            // Bonus for being near the top (e.g., within top 20% of viewport)
+                            if (rect.top >= 0 && rect.top < viewportHeight * 0.2) {
+                                score += 50; // Add significant bonus
+                            } else {
+                                // Penalize slightly for distance from top
+                                score -= (distanceFromTop / viewportHeight) * 10;
+                            }
+                        }
+
+                        if (score > maxScore) {
+                            maxScore = score;
+                            bestVisibleSectionId = section.id;
+                        }
+                    }
+                });
+
+                if (bestVisibleSectionId && bestVisibleSectionId !== lastActivatedByScroll) {
+                    activateLink(bestVisibleSectionId);
+                    lastActivatedByScroll = bestVisibleSectionId;
                 }
+            }, 50); // Debounce time
+        };
 
-                // Option 2: More precise - activate when element is most prominent near top
-                // let currentVisibleId = null;
-                // let maxRatio = 0;
-                // entries.forEach(e => {
-                //     if (e.intersectionRatio > maxRatio && e.boundingClientRect.top < window.innerHeight / 2) {
-                //         maxRatio = e.intersectionRatio;
-                //         currentVisibleId = e.target.id;
-                //     }
-                // });
-                // if (currentVisibleId) {
-                //     activateLink(currentVisibleId);
-                // }
-            });
-        }, {
-            // rootMargin: '-20% 0px -60% 0px', // Trigger when element enters top 20% to 40% of viewport
-            threshold: 0.1 // Trigger even when a small part is visible
-            // threshold: [0, 0.25, 0.5, 0.75, 1] // More granular thresholds
-        });
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-
-        // Initial activation on load
         const activateInitial = () => {
-            if (window.location.hash) {
-                const targetId = window.location.hash.substring(1);
-                const targetElement = document.getElementById(targetId);
-                if(targetElement) {
-                    activateLink(targetId);
-                    // Optional: smooth scroll to hash target after styles applied
-                    // setTimeout(() => {
-                    //     targetElement.scrollIntoView({ behavior: 'smooth' });
-                    // }, 100); // Small delay
-                } else if (sections.length > 0){
-                    activateLink(sections[0].id); // Fallback to first section
-                }
-            } else if (sections.length > 0){
-                activateLink(sections[0].id); // Activate the first section if no hash
+            const hash = window.location.hash;
+            if (hash) {
+                const targetId = hash.substring(1);
+                if (document.getElementById(targetId)) activateLink(targetId);
+                else if (sections.length > 0) activateLink(sections[0].id);
+            } else if (sections.length > 0) {
+                activateLink(sections[0].id);
             }
+            // Run scroll check once after initial load to refine active link
+            setTimeout(onScroll, 100);
         };
 
         activateInitial();
+        window.addEventListener('scroll', onScroll, { passive: true });
 
-        // Re-evaluate active link on scroll end (debounced) for accuracy
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                let mostVisibleSectionId = sections[0].id; // Default to first
-                let minDistanceFromTop = window.innerHeight;
-
-                sections.forEach(section => {
-                    const rect = section.getBoundingClientRect();
-                    const distance = Math.abs(rect.top); // Distance from viewport top
-
-                    // Consider sections that are within the viewport or just above it
-                    if (rect.top < window.innerHeight && rect.bottom >= 0) {
-                        if (distance < minDistanceFromTop) {
-                            minDistanceFromTop = distance;
-                            mostVisibleSectionId = section.id;
-                        }
-                    }
-                });
-                activateLink(mostVisibleSectionId);
-            }, 150); // Adjust debounce delay as needed
-        }, { passive: true }); // Improve scroll performance
-
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    const targetId = href.substring(1);
+                    activateLink(targetId);
+                    lastActivatedByScroll = targetId; // Prevent scroll listener from immediately overriding
+                }
+            });
+        });
     });
 </script>
 
